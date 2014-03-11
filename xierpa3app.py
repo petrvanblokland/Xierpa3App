@@ -10,7 +10,7 @@
 from AppKit import NSObject # , NSColor, NSView, NSFilenamesPboardType, NSDragOperationNone, NSDragOperationCopy
 from PyObjCTools import AppHelper
 
-from mainwindow import MainWindow
+from src.mainwindow import MainWindow
 
 class SimpleAppAppDelegate(NSObject):
 

@@ -8,13 +8,12 @@
 #
 
 class Constants(object):
-    # DOMAIN                             = '127.0.0.1'
     DB = ''
-    DOMAIN = 'red.petr.net'
+    DOMAIN = 'www.xierpa.com'
     PORT = 8001
     HOST = '%s:%s' % (DOMAIN, PORT)
-    LOGIN = 'Amex'
-    PASSWORD = 'amex'
+    LOGIN = ''
+    PASSWORD = ''
     PUBLICKEY = ''
 
     WINDOW_WIDTH = 1400

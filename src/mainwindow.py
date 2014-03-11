@@ -24,7 +24,7 @@ class MainWindow(Constants):
 
     def __init__(self):
         self.paths = []
-        self.w = Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "UploadClient", closable=False)
+        self.w = Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa3", closable=False)
 
         self.w.t1 = TextEditor((10, 10, -10, 16), text=self.DOMAIN, callback=self.domainCallback)
         self.w.t2 = TextEditor((10, 30, -10, 16), text=str(self.PORT), callback=self.portCallback)
@@ -45,9 +45,7 @@ class MainWindow(Constants):
 
     def message(self, s):
         u"""
-        <doc>
         Write message to bottom of GUI.
-        </doc>
         """
         self.w.message.set(u'%s' % s)
 
@@ -56,33 +54,25 @@ class MainWindow(Constants):
 
     def domainCallback(self, sender):
         u"""
-        <doc>
         Callback function for domain field.
-        </doc>
         """
         self.DOMAIN = sender.get()
 
     def portCallback(self, sender):
         u"""
-        <doc>
         Callback function for port field.
-        </doc>
         """
         self.PORT = sender.get()
 
     def loginCallback(self, sender):
         u"""
-        <doc>
         Callback function for login field.
-        </doc>
         """
         self.LOGIN = sender.get()
 
     def testCallback(self, sender):
         u"""
-        <doc>
         Test if server answers.
-        </doc>
         """
         self.message('Testing...')
         # One file at the time.
@@ -101,9 +91,7 @@ class MainWindow(Constants):
 
     def uploadCallback(self, sender):
         u"""
-        <doc>
         Main callback to upload the file to a server.
-        </doc>
         """
         self.message('Uploading...')
         # One file at the time.
