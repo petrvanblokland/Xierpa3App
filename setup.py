@@ -22,4 +22,4 @@ APP = ['xierpa3app.py']
 DATA_FILES = ['Resources/English.lproj', ]
 OPTIONS = {'argv_emulation': True, 'iconfile': 'images/icon.icns'}
 
-setup(app=APP, data_files=DATA_FILES, options={'py2app': OPTIONS}, setup_requires=['py2app'],)
+setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, options={'py2app': OPTIONS}, setup_requires=['py2app'],)

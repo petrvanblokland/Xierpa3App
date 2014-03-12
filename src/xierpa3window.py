@@ -29,3 +29,52 @@ class Xierpa3Window(Constants):
 
     def radioGroupCallback(self, sender):
         print "radio group edit!", sender.get()
+
+'''
+class SpreadsheetDemo(object):
+
+    def __init__(self):
+        self.w = Window((400, 400), "Spreadsheet", minSize=(100, 100))
+        cols = (
+            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
+            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
+            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
+        rows = 5
+        self.w.spreadsheet = sh = Spreadsheet((0, 0, 0, 200), cols, rows)
+        sh.fill()
+        self.w.spreadsheetView = ((100, 0, 0, 0), self.w.spreadsheet.getView())
+        self.w.open()
+
+# SpreadsheetDemo()
+
+class StyleFloqSheet(Spreadsheet):
+    FIELDS = ('leftMargin', 'width', 'rightMargin', 'stem', 'roundStem', 'bar', 'roundBar')
+
+    def fill(self):
+        u"""Initial call or glyph changed: fill the cell data"""
+        styleFloq = self.getModel()
+        y = 0
+        for glyphName in sorted(styleFloq.keys()):
+            glyph = styleFloq[glyphName]
+            self[(0, y)] = glyphName
+            for x, field in enumerate(self.FIELDS):
+                value = getattr(styleFloq[glyphName], field) or ''
+                self[(x + 1, y)] = value
+            y += 1
+
+class StyleFloqSheetDemo(object):
+    def __init__(self):
+        font = CurrentFont()
+        if font is not None:
+            self.w = Window((800, 400), "Style Floq Sheet", minSize=(100, 100))
+            cols = ('Name', 'Uni', 'Left', 'Width', 'Right', 'Stem', 'rStem', 'Bar', 'rBar')
+            rows = len(font.keys())
+            styleFloq = floqManager.fromFont(font)
+            # print 'rows', rows
+            self.w.floqSheet = fs = StyleFloqSheet((0, 0, 0, 0), cols, rows, styleFloq)
+            self.w.spreadsheetView = ssv = ScrollView((0, 0, 0, 0), fs.getView())
+            fs.setParent(ssv) # Set parent, so the spreadsheet can find the scrollbar value.
+            self.w.open()
+
+StyleFloqSheetDemo()
+'''
