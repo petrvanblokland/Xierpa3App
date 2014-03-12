@@ -7,15 +7,17 @@
 #    No distribution without permission.
 #
 
-from AppKit import NSObject # , NSColor, NSView, NSFilenamesPboardType, NSDragOperationNone, NSDragOperationCopy
+'''
+NSColor, NSView, NSFilenamesPboardType, NSDragOperationNone, NSDragOperationCopy
+'''
+from AppKit import NSObject
 from PyObjCTools import AppHelper
-
-from src.mainwindow import MainWindow
+from src.xierpa3window import Xierpa3Window
 
 class SimpleAppAppDelegate(NSObject):
 
     def applicationDidFinishLaunching_(self, notification):
-        MainWindow()
+        Xierpa3Window()
 
 if __name__ == "__main__":
     AppHelper.runEventLoop()
