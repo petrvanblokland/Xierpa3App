@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
 #
 #    X I E R P A   3
-#    OS X Application (c) 2014 buro@petr.com, www.petr.com, www.xierpa.com
-#    Authors: Petr van Blokland, Michiel Kauw–A–Tjoe
+#    OS X Application (c) 2014 buro@petr.com, www.petr.com, www.xierpa.com.
+#    Authors: Petr van Blokland, Michiel Kauw–A–Tjoe.
 #
 #    No distribution without permission.
 #
+
 from AppKit import NSView, NSFilenamesPboardType, NSDragOperationNone, NSDragOperationCopy
 from vanilla import Group
 
