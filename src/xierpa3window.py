@@ -9,8 +9,8 @@
 
 import vanilla
 from constants import Constants
-from spreadsheet import SpreadSheet
-from roboflightlib.toolbox.dimensions.floqmanager import floqManager
+from spreadsheet import Spreadsheet
+# from roboflightlib.toolbox.dimensions.floqmanager import floqManager
 
 class Xierpa3Window(Constants):
     u"""
@@ -45,8 +45,6 @@ class Xierpa3Window(Constants):
         sh.fill()
         return sh
 
-# SpreadsheetDemo()
-
 class StyleFloqSheet(Spreadsheet):
 
     FIELDS = ('leftMargin', 'width', 'rightMargin', 'stem', 'roundStem', 'bar', 'roundBar')
@@ -63,6 +61,7 @@ class StyleFloqSheet(Spreadsheet):
                 self[(x + 1, y)] = value
             y += 1
 
+'''
 class StyleFloqSheetDemo(object):
 
     def __init__(self):
@@ -72,6 +71,7 @@ class StyleFloqSheetDemo(object):
             self.w = Window((800, 400), "Style Floq Sheet", minSize=(100, 100))
             cols = ('Name', 'Uni', 'Left', 'Width', 'Right', 'Stem', 'rStem', 'Bar', 'rBar')
             rows = len(font.keys())
+
             styleFloq = floqManager.fromFont(font)
             # print 'rows', rows
             self.w.floqSheet = fs = StyleFloqSheet((0, 0, 0, 0), cols, rows, styleFloq)
@@ -80,3 +80,4 @@ class StyleFloqSheetDemo(object):
             self.w.open()
 
 StyleFloqSheetDemo()
+'''

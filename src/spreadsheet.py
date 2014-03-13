@@ -226,6 +226,8 @@ class Spreadsheet(VanillaBaseObject):
         return cols
 
     def fill(self):
+        u"""
+        """
         for x in range(len(self._cols)):
             for y in range(len(self._rows)):
                 if x == y:
