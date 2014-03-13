@@ -1,11 +1,13 @@
+# Scrolling
+# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
+# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html#//apple_ref/doc/uid/TP40003463-SW2
+
 from AppKit import *
 from vanilla import *
 from random import random
 import weakref
 
-# from roboflightlib.toolbox.vanillas.spreadsheet import BaseSpreadsheet
 from roboflightlib.toolbox.vanillas.eventview import EventView
-# from roboflightlib.toolbox.dimensions.floqmanager import floqManager # Instance
 
 class Mouse(object):
 
@@ -17,10 +19,6 @@ class Mouse(object):
 
     def __repr__(self):
         return 'Mouse[%s %s %s %s]' % (self.p, self.xy, self.dragging, self.modifiers)
-
-# Scrolling
-# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
-# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html#//apple_ref/doc/uid/TP40003463-SW2
 
 class Spreadsheet(VanillaBaseObject):
 
@@ -106,6 +104,7 @@ class Spreadsheet(VanillaBaseObject):
         self._mouse.xy = xy = self.mouse2Cell(p.x, p.y)
         self._mouse.modifiers = modifiers = event.modifierFlags()
         self._mouse.dragging = False
+
         # Cmd-key, toggle current position
         if modifiers & NSCommandKeyMask:
             self.toggleSelect(xy)
@@ -267,6 +266,7 @@ class Spreadsheet(VanillaBaseObject):
         height = self.getWindowHeight()
         # Draw the horizontal bands of the rows
         NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 1, .4).set()
+
         for y, name in enumerate(self._rows):
             if y % 2 == 0:
                 py = y * self.H * 2
@@ -278,13 +278,16 @@ class Spreadsheet(VanillaBaseObject):
                 path.fill()
             # self.text(name, 0, y)
         NSColor.colorWithCalibratedRed_green_blue_alpha_(0, 0, 0, .1).set()
+
         # Draw the vertical lines of columns and the column names
         for x, name in enumerate(self._cols):
             path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN + x * self.W, vy, 1, vy + vh))
             path.fill()
             # self.text(name, x, 0)
+
         # Draw the selected cells as color rectangle
         NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 0, .4).set()
+
         for x, y in self._selected:
             py = y * self.H
             if vy <= py <= vy + vh:
@@ -299,6 +302,7 @@ class Spreadsheet(VanillaBaseObject):
         attrs = {NSFontAttributeName : NSFont.fontWithName_size_("Verdana", 12),
                 NSForegroundColorAttributeName : NSColor.blackColor()
         }
+
         for (x, y), item in self.items():
             # print x, y, vx, vy, vw, vh, item
             px, py = self.cell2Mouse(x, y)
@@ -311,16 +315,19 @@ class Spreadsheet(VanillaBaseObject):
         """
         if not isinstance(txt, basestring):
             txt = `txt`
+
         if attrs is None:
             attrs = {
                 NSFontAttributeName : 'Verdana',
                 NSForegroundColorAttributeName : NSColor.redColor(),
             }
+
         if align == 'right':
             s = NSString.stringWithString_(txt)
             r = s.boundingRectWithSize_options_attributes_((0, 0), 1, attrs)
             offset = self.MARGIN - r.size.width - self.CELLMARGIN
         else:
             offset = self.CELLMARGIN
+
         text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
         text.drawAtPoint_((x + offset, y))

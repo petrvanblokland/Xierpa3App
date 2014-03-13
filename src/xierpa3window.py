@@ -9,6 +9,8 @@
 
 import vanilla
 from constants import Constants
+from spreadsheet import SpreadSheet
+from roboflightlib.toolbox.dimensions.floqmanager import floqManager
 
 class Xierpa3Window(Constants):
     u"""
@@ -20,34 +22,33 @@ class Xierpa3Window(Constants):
         Initialize the window and open it.
         """
         self.paths = []
-        options = ["Xierpa 3 Server", "HTML + Sass", "Kirby Template", "WordPress Template"]
         self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3", closable=True)
-        self.w.radioGroup = vanilla.RadioGroup((10, 10, -10, 80),
-                                options,
-                                callback=self.radioGroupCallback)
+        # self.w.radioGroup = self.getXierpa3Options()
+        self.w.spreadsheet = self.getSpreadSheet()
         self.w.open()
+        self.w.spreadsheetView = ((100, 0, 0, 0), self.w.spreadsheet.getView())
+
+    def getXierpa3Options(self):
+        options = ["Xierpa 3 Server", "HTML + Sass", "Kirby Template", "WordPress Template"]
+        return vanilla.RadioGroup((10, 10, -10, 80), options, callback=self.radioGroupCallback)
 
     def radioGroupCallback(self, sender):
         print "radio group edit!", sender.get()
 
-'''
-class SpreadsheetDemo(object):
-
-    def __init__(self):
-        self.w = Window((400, 400), "Spreadsheet", minSize=(100, 100))
+    def getSpreadSheet(self):
         cols = (
             'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
             'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
             'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
         rows = 5
-        self.w.spreadsheet = sh = Spreadsheet((0, 0, 0, 200), cols, rows)
+        sh = Spreadsheet((0, 0, 0, 200), cols, rows)
         sh.fill()
-        self.w.spreadsheetView = ((100, 0, 0, 0), self.w.spreadsheet.getView())
-        self.w.open()
+        return sh
 
 # SpreadsheetDemo()
 
 class StyleFloqSheet(Spreadsheet):
+
     FIELDS = ('leftMargin', 'width', 'rightMargin', 'stem', 'roundStem', 'bar', 'roundBar')
 
     def fill(self):
@@ -63,8 +64,10 @@ class StyleFloqSheet(Spreadsheet):
             y += 1
 
 class StyleFloqSheetDemo(object):
+
     def __init__(self):
         font = CurrentFont()
+
         if font is not None:
             self.w = Window((800, 400), "Style Floq Sheet", minSize=(100, 100))
             cols = ('Name', 'Uni', 'Left', 'Width', 'Right', 'Stem', 'rStem', 'Bar', 'rBar')
@@ -77,4 +80,3 @@ class StyleFloqSheetDemo(object):
             self.w.open()
 
 StyleFloqSheetDemo()
-'''
