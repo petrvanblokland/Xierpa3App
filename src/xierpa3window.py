@@ -36,12 +36,13 @@ class Xierpa3Window(Constants):
         print "radio group edit!", sender.get()
 
     def getSpreadSheet(self):
-        cols = (
-            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
-            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
-            'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
+        # cols = (
+        #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
+        #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
+        #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
+        cols = 4
         rows = 5
-        sh = Spreadsheet((0, 0, 0, 200), cols, rows)
+        sh = Spreadsheet((10, 10, 0, 200), cols, rows)
         sh.fill()
         return sh
 

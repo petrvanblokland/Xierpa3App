@@ -1,29 +1,29 @@
-# Scrolling
-# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
-# https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html#//apple_ref/doc/uid/TP40003463-SW2
+# -*- coding: UTF-8 -*-
+#
+#    X I E R P A   3
+#    OS X Application (c) 2014 buro@petr.com, www.petr.com, www.xierpa.com.
+#    Authors: Petr van Blokland, Michiel Kauw–A–Tjoe.
+#
+#    No distribution without permission.
+#
+#    Scrolling
+#
+#    https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
+#    https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html#//apple_ref/doc/uid/TP40003463-SW2
 
 from AppKit import *
-from vanilla import *
+from vanilla import VanillaBaseObject
 from random import random
+from mouse import Mouse
 import weakref
 
 from roboflightlib.toolbox.vanillas.eventview import EventView
 
-class Mouse(object):
-
-    def __init__(self):
-        self.p = None
-        self.xy = None
-        self.dragging = False
-        self.modifiers = None
-
-    def __repr__(self):
-        return 'Mouse[%s %s %s %s]' % (self.p, self.xy, self.dragging, self.modifiers)
-
 class Spreadsheet(VanillaBaseObject):
 
-    # Cell width and height
-    MARGIN = W = 80
+    # Cell width and height.
+    MARGIN = 80
+    W = 80
     H = 21
     CELLMARGIN = 4
     TITLEWIDTH = 40
@@ -34,15 +34,8 @@ class Spreadsheet(VanillaBaseObject):
         indicating the number of columns, or it can be a list of names for all columns. The same applies to the
         <i>rows</i> attribute.
         """
-        if isinstance(cols, (list, tuple)):
-            self._cols = cols
-        else:
-            self._cols = range(cols)
-
-        if isinstance(rows, (list, tuple)):
-            self._rows = rows
-        else:
-            self._rows = range(rows)
+        self.setCols(cols)
+        self.setRows(rows)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
 
@@ -54,14 +47,27 @@ class Spreadsheet(VanillaBaseObject):
         self.clearMouse()
         self._posSize = posSize
         self._cells = {}
-        self._selected = set() # Dictionary (x,y) of selected cells coordinates.
+        self._selected = set() # Set (x,y) of selected cells coordinates.
 
+        # Single edit cell in top-left corner.
         self.editCell = EditText((0, 0, self.W, self.H), callback=self.editCellCallback)
         self.editCell.show(False)
 
         self._model = model # Source data for the cells, interpreted by the inheriting fill method.
         self.fill()
         # print self.getWindowHeight(), len(self._rows), self._height, self.H
+
+    def setCols(self, cols):
+        if isinstance(cols, (list, tuple)):
+            self._cols = cols
+        else:
+            self._cols = range(cols)
+
+    def setRows(self, rows):
+        if isinstance(rows, (list, tuple)):
+            self._rows = rows
+        else:
+            self._rows = range(rows)
 
     def getParent(self):
         if hasattr(self, '_parent'):
@@ -98,6 +104,8 @@ class Spreadsheet(VanillaBaseObject):
     def getWindowPosition(self):
         x, y = self._nsObject.bounds()[0]
         return x, y
+
+    #   E V E N T S
 
     def mouseDown(self, event):
         self._mouse.p = p = event.locationInWindow()
@@ -185,7 +193,10 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Get the size of the current scroll rectangle. We only draw there.
         """
-        return self.getParent().getNSScrollView().documentVisibleRect()
+        # parent is None, causes exception.
+        parent = self.getParent()
+        if parent:
+            return parent.getNSScrollView().documentVisibleRect()
 
     #   D A T A
 
@@ -234,6 +245,7 @@ class Spreadsheet(VanillaBaseObject):
                     value = '?abc'
                 else:
                     value = x * y
+                print value
                 self.set(x, y, value)
 
     def evaluate(self, item):
