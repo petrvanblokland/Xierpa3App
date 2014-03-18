@@ -30,12 +30,12 @@ class Xierpa3Window(Constants):
         self.paths = []
         self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
                                 closable=True, minSize=(200, 200), maxSize=(2000, 2000))
-        self.view = Xierpa3View.alloc().init()
-        self.view.setFrame_(((0, 0), (500, 500)))
-        self.w.scrollView = vanilla.ScrollView((10, 10, -10, -10), self.view)
+        # self.view = Xierpa3View.alloc().init()
+        # self.view.setFrame_(((0, 0), (500, 500)))
         # self.w.radioGroup = self.getXierpa3Options()
-        # self.w.spreadsheet = self.getSpreadSheet()
-        # self.w.spreadsheetView = ((0, 0, 0, 0), self.w.getView())
+        spreadsheet = self.getSpreadSheet()
+        view = spreadsheet.getView()
+        self.w.scrollView = vanilla.ScrollView((10, 10, -10, -10), view)
         self.w.open()
 
 
