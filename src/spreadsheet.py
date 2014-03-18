@@ -14,7 +14,8 @@
 import weakref
 
 from AppKit import *
-from vanilla import VanillaBaseObject
+# from vanilla import VanillaBaseObject
+from vanilla import *
 from random import random
 from mouse import Mouse
 from eventview import EventView
@@ -58,16 +59,16 @@ class Spreadsheet(VanillaBaseObject):
         # print self.getWindowHeight(), len(self._rows), self._height, self.H
 
     def setCols(self, cols):
-        if isinstance(cols, (list, tuple)):
-            self._cols = cols
-        else:
-            self._cols = range(cols)
+        # if isinstance(cols, (list, tuple)):
+        #    self._cols = cols
+        # else:
+        self._cols = range(cols)
 
     def setRows(self, rows):
-        if isinstance(rows, (list, tuple)):
-            self._rows = rows
-        else:
-            self._rows = range(rows)
+        # if isinstance(rows, (list, tuple)):
+        #    self._rows = rows
+        # else:
+        self._rows = range(rows)
 
     def getParent(self):
         if hasattr(self, '_parent'):
@@ -240,6 +241,7 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Initializes cell values.
         """
+
         i = 0
 
         for x in range(len(self._cols)):
@@ -258,7 +260,7 @@ class Spreadsheet(VanillaBaseObject):
         """
         if isinstance(item, basestring):
             if item.startswith('?'):
-                s = 'XXX'
+                s = '-x-'
             else:
                 s = item
         elif isinstance(item, (int, long, float)):
@@ -277,7 +279,16 @@ class Spreadsheet(VanillaBaseObject):
         Render the cells that fall inside rectangle.
         """
         self.drawGrid(rect)
-        self.drawCells(rect)
+        # self.drawCells(rect)
+
+    def setLight(self):
+        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 1, 0.5).set()
+
+    def setDark(self):
+        NSColor.colorWithCalibratedRed_green_blue_alpha_(0, 0, 0, .1).set()
+
+    def setHighlight(self):
+        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 0, .4).set()
 
     def drawGrid(self, rect):
         u"""
@@ -285,21 +296,22 @@ class Spreadsheet(VanillaBaseObject):
         """
         (vy, vx), (vw, vh) = rect
         height = self.getWindowHeight()
+
         # Draw the horizontal bands of the rows
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 1, .4).set()
-
-        for y, name in enumerate(self._rows):
-            if y % 2 == 0:
-                py = y * self.H * 2
-                if py < vy:
-                    continue
-                if py > vy + vh:
-                    break
-                path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN, py, self._width, self.H))
+        for x in self._cols:
+            px = x * self.W
+            for y in self._rows:
+                py = y * self.H
+                if y % 2 == 0:
+                    self.setLight()
+                else:
+                    self.setDark()
+                box = NSMakeRect(px, py, self.W - 1, self.H - 1)
+                path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
-            # self.text(name, 0, y)
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(0, 0, 0, .1).set()
+                self.text('bla', x, y)
 
+        '''
         # Draw the vertical lines of columns and the column names
         for x, name in enumerate(self._cols):
             path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN + x * self.W, vy, 1, vy + vh))
@@ -307,13 +319,14 @@ class Spreadsheet(VanillaBaseObject):
             # self.text(name, x, 0)
 
         # Draw the selected cells as color rectangle
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 0, .4).set()
+        self.setHighlight()
 
         for x, y in self._selected:
             py = y * self.H
             if vy <= py <= vy + vh:
                 path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN + x * self.W, py, self.W, self.H))
                 path.fill()
+        '''
 
     def drawCells(self, rect):
         u"""
@@ -334,21 +347,24 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Draw the text in cell position x, y.
         """
-        if not isinstance(txt, basestring):
-            txt = `txt`
+        try:
+            if not isinstance(txt, basestring):
+                txt = `txt`
 
-        if attrs is None:
-            attrs = {
-                NSFontAttributeName : 'Verdana',
-                NSForegroundColorAttributeName : NSColor.redColor(),
-            }
+            if attrs is None:
+                attrs = {
+                    NSFontAttributeName : 'Verdana',
+                    NSForegroundColorAttributeName : NSColor.redColor(),
+                }
 
-        if align == 'right':
-            s = NSString.stringWithString_(txt)
-            r = s.boundingRectWithSize_options_attributes_((0, 0), 1, attrs)
-            offset = self.MARGIN - r.size.width - self.CELLMARGIN
-        else:
-            offset = self.CELLMARGIN
+            if align == 'right':
+                s = NSString.stringWithString_(txt)
+                r = s.boundingRectWithSize_options_attributes_((0, 0), 1, attrs)
+                offset = self.MARGIN - r.size.width - self.CELLMARGIN
+            else:
+                offset = self.CELLMARGIN
 
-        text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
-        text.drawAtPoint_((x + offset, y))
+            text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
+            text.drawAtPoint_((x + offset, y))
+        except Exception, e:
+            print e
