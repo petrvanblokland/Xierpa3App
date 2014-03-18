@@ -7,10 +7,16 @@
 #    No distribution without permission.
 #
 
+from AppKit import NSView, NSColor, NSRectFill
 import vanilla
 from constants import Constants
 from spreadsheet import Spreadsheet
-# from roboflightlib.toolbox.dimensions.floqmanager import floqManager
+
+class Xierpa3View(NSView):
+
+    def drawRect_(self, rect):
+        NSColor.redColor().set()
+        NSRectFill(self.bounds())
 
 class Xierpa3Window(Constants):
     u"""
@@ -22,11 +28,16 @@ class Xierpa3Window(Constants):
         Initialize the window and open it.
         """
         self.paths = []
-        self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3", closable=True)
+        self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
+                                closable=True, minSize=(200, 200), maxSize=(2000, 2000))
+        self.view = Xierpa3View.alloc().init()
+        self.view.setFrame_(((0, 0), (500, 500)))
+        self.w.scrollView = vanilla.ScrollView((10, 10, -10, -10), self.view)
         # self.w.radioGroup = self.getXierpa3Options()
-        self.w.spreadsheet = self.getSpreadSheet()
+        # self.w.spreadsheet = self.getSpreadSheet()
+        # self.w.spreadsheetView = ((0, 0, 0, 0), self.w.getView())
         self.w.open()
-        self.w.spreadsheetView = ((200, 0, 0, 0), self.w.spreadsheet.getView())
+
 
     def getXierpa3Options(self):
         options = ["Xierpa 3 Server", "HTML + Sass", "Kirby Template", "WordPress Template"]
@@ -41,8 +52,8 @@ class Xierpa3Window(Constants):
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
         cols = 20
-        rows = 16
-        sh = Spreadsheet((0, 0, 0, 0), cols, rows)
+        rows = 36
+        sh = Spreadsheet(self, (0, 0, 0, 0), cols, rows)
         sh.fill()
         return sh
 

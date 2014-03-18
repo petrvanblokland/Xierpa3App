@@ -31,52 +31,44 @@ class Spreadsheet(VanillaBaseObject):
     defaultTextAttributes = {NSFontAttributeName: NSFont.fontWithName_size_("Verdana", 12),
                              NSForegroundColorAttributeName: NSColor.blackColor()}
 
-    def __init__(self, posSize, cols, rows, model=None):
+    def __init__(self, parent, posSize, cols, rows, model=None):
         u"""
         The <b>Spreadsheet</b> defines the generic behavior of a spread sheet. The <i>cols</i> can be an integer,
         indicating the number of columns, or it can be a list of names for all columns. The same applies to the
         <i>rows</i> attribute.
         """
-        self.setCols(cols)
-        self.setRows(rows)
+        self._parent = parent
+        self._rows = range(rows)
+        self._posSize = posSize
+        self._cols = range(cols)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
 
+        # Set view.
         self._nsObject = view = EventView.alloc().init()
         view.setModel(self)
         view.setFrame_(((0, 0), (self._width, self._height)))
         self._setAutosizingFromPosSize(posSize)
         # self._nsObject.setFrame(800, 800)
         self.clearMouse()
-        self._posSize = posSize
+
         self._cells = {}
         self._selected = set() # Set (x,y) of selected cells coordinates.
 
         # Single edit cell in top-left corner.
         self.editCell = EditText((0, 0, self.W, self.H), callback=self.editCellCallback)
-        self.editCell.show(False)
+        # self.editCell.show(True)
 
         self._model = model # Source data for the cells, interpreted by the inheriting fill method.
         self.fill()
 
         # print self.getWindowHeight(), len(self._rows), self._height, self.H
 
-    def setCols(self, cols):
-        # if isinstance(cols, (list, tuple)):
-        #    self._cols = cols
-        # else:
-        self._cols = range(cols)
-
-    def setRows(self, rows):
-        # if isinstance(rows, (list, tuple)):
-        #    self._rows = rows
-        # else:
-        self._rows = range(rows)
 
     def getParent(self):
-        if hasattr(self, '_parent'):
-            return self._parent()
-        return None
+        # if hasattr(self, '_parent'):
+        return self._parent
+        # return None
 
     def setParent(self, parent):
         self._parent = weakref.ref(parent)
@@ -112,8 +104,11 @@ class Spreadsheet(VanillaBaseObject):
     #   E V E N T S
 
     def mouseDown(self, event):
+        print 'mousedown', event
         self._mouse.p = p = event.locationInWindow()
+        print 'position', p
         self._mouse.xy = xy = self.mouse2Cell(p.x, p.y)
+        print 'cell', xy
         self._mouse.modifiers = modifiers = event.modifierFlags()
         self._mouse.dragging = False
 
@@ -128,6 +123,7 @@ class Spreadsheet(VanillaBaseObject):
         self.update()
 
     def mouseUp(self, event):
+        print 'mouseup', event
         if len(self._selected) == 1:
             (ox, oy), (ow, oh) = self.getVisibleScrollRect()
             xy = list(self._selected)[0]
@@ -197,10 +193,8 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Get the size of the current scroll rectangle. We only draw there.
         """
-        # parent is None, causes exception.
         parent = self.getParent()
-        if parent:
-            return parent.getNSScrollView().documentVisibleRect()
+        return parent.getNSScrollView().documentVisibleRect()
 
     #   D A T A
 
