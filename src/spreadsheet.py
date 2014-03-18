@@ -28,6 +28,8 @@ class Spreadsheet(VanillaBaseObject):
     H = 21
     CELLMARGIN = 4
     TITLEWIDTH = 40
+    defaultTextAttributes = {NSFontAttributeName: NSFont.fontWithName_size_("Verdana", 12),
+                             NSForegroundColorAttributeName: NSColor.blackColor()}
 
     def __init__(self, posSize, cols, rows, model=None):
         u"""
@@ -56,6 +58,7 @@ class Spreadsheet(VanillaBaseObject):
 
         self._model = model # Source data for the cells, interpreted by the inheriting fill method.
         self.fill()
+
         # print self.getWindowHeight(), len(self._rows), self._height, self.H
 
     def setCols(self, cols):
@@ -309,7 +312,7 @@ class Spreadsheet(VanillaBaseObject):
                 box = NSMakeRect(px, py, self.W - 1, self.H - 1)
                 path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
-                self.text('bla', x, y)
+                self.text('bla', px, py)
 
         '''
         # Draw the vertical lines of columns and the column names
@@ -347,24 +350,24 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Draw the text in cell position x, y.
         """
+
+        if not isinstance(txt, basestring):
+            txt = `txt`
+
+        attrs = attrs or self.defaultTextAttributes
+        # if align == 'right':
+        #    w = self.getStringWidth(txt, attrs)
+        #    offset = self.MARGIN - w - self.CELLMARGIN
+        # else:
+        offset = self.CELLMARGIN
+        text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
+
         try:
-            if not isinstance(txt, basestring):
-                txt = `txt`
-
-            if attrs is None:
-                attrs = {
-                    NSFontAttributeName : 'Verdana',
-                    NSForegroundColorAttributeName : NSColor.redColor(),
-                }
-
-            if align == 'right':
-                s = NSString.stringWithString_(txt)
-                r = s.boundingRectWithSize_options_attributes_((0, 0), 1, attrs)
-                offset = self.MARGIN - r.size.width - self.CELLMARGIN
-            else:
-                offset = self.CELLMARGIN
-
-            text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
             text.drawAtPoint_((x + offset, y))
         except Exception, e:
             print e
+
+    def getStringWidth(self, txt, attrs):
+        s = NSString.stringWithString_(txt)
+        r = s.boundingRectWithSize_options_attributes_((0, 0), 1, attrs)
+        return r.size.width

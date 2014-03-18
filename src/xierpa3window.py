@@ -26,7 +26,7 @@ class Xierpa3Window(Constants):
         # self.w.radioGroup = self.getXierpa3Options()
         self.w.spreadsheet = self.getSpreadSheet()
         self.w.open()
-        self.w.spreadsheetView = ((100, 0, 0, 0), self.w.spreadsheet.getView())
+        self.w.spreadsheetView = ((200, 0, 0, 0), self.w.spreadsheet.getView())
 
     def getXierpa3Options(self):
         options = ["Xierpa 3 Server", "HTML + Sass", "Kirby Template", "WordPress Template"]
@@ -42,7 +42,7 @@ class Xierpa3Window(Constants):
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
         cols = 20
         rows = 16
-        sh = Spreadsheet((0, 10, 0, 200), cols, rows)
+        sh = Spreadsheet((0, 0, 0, 0), cols, rows)
         sh.fill()
         return sh
 
