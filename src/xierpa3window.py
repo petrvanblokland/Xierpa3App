@@ -12,12 +12,6 @@ import vanilla
 from constants import Constants
 from spreadsheet import Spreadsheet
 
-class Xierpa3View(NSView):
-
-    def drawRect_(self, rect):
-        NSColor.redColor().set()
-        NSRectFill(self.bounds())
-
 class Xierpa3Window(Constants):
     u"""
     Implementation of a vanilla-based GUI for the Xierpa 3 environment.
@@ -30,9 +24,6 @@ class Xierpa3Window(Constants):
         self.paths = []
         self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
                                 closable=True, minSize=(200, 200), maxSize=(2000, 2000))
-        # self.view = Xierpa3View.alloc().init()
-        # self.view.setFrame_(((0, 0), (500, 500)))
-        # self.w.radioGroup = self.getXierpa3Options()
         spreadsheet = self.getSpreadSheet()
         view = spreadsheet.getView()
         self.w.scrollView = vanilla.ScrollView((10, 10, -10, -10), view)

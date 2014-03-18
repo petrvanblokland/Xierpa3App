@@ -38,20 +38,19 @@ class Spreadsheet(VanillaBaseObject):
         <i>rows</i> attribute.
         """
         self._parent = parent
-        self._rows = range(rows)
         self._posSize = posSize
         self._cols = range(cols)
+        self._rows = range(rows)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
+        print self._width, self._height
 
         # Set view.
         self._nsObject = view = EventView.alloc().init()
         view.setModel(self)
-        view.setFrame_(((0, 0), (self._width, self._height)))
-        self._setAutosizingFromPosSize(posSize)
-        # self._nsObject.setFrame(800, 800)
+        view.setFrame_(((0, 0), (1000, 800)))
+        # self._setAutosizingFromPosSize(posSize)
         self.clearMouse()
-
         self._cells = {}
         self._selected = set() # Set (x,y) of selected cells coordinates.
 
@@ -194,7 +193,7 @@ class Spreadsheet(VanillaBaseObject):
         Get the size of the current scroll rectangle. We only draw there.
         """
         parent = self.getParent()
-        return parent.getNSScrollView().documentVisibleRect()
+        return parent.w.scrollView.getNSScrollView().documentVisibleRect()
 
     #   D A T A
 
