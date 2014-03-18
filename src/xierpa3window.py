@@ -40,8 +40,8 @@ class Xierpa3Window(Constants):
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh',
         #    'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh')
-        cols = 4
-        rows = 5
+        cols = 20
+        rows = 16
         sh = Spreadsheet((10, 10, 0, 200), cols, rows)
         sh.fill()
         return sh

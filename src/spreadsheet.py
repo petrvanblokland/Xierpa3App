@@ -11,13 +11,13 @@
 #    https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html
 #    https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/NSScrollViewGuide/Articles/Scrolling.html#//apple_ref/doc/uid/TP40003463-SW2
 
+import weakref
+
 from AppKit import *
 from vanilla import VanillaBaseObject
 from random import random
 from mouse import Mouse
-import weakref
-
-from roboflightlib.toolbox.vanillas.eventview import EventView
+from eventview import EventView
 
 class Spreadsheet(VanillaBaseObject):
 
@@ -238,17 +238,24 @@ class Spreadsheet(VanillaBaseObject):
 
     def fill(self):
         u"""
+        Initializes cell values.
         """
+        i = 0
+
         for x in range(len(self._cols)):
             for y in range(len(self._rows)):
-                if x == y:
-                    value = '?abc'
-                else:
-                    value = x * y
-                print value
+                # if x == y:
+                #    value = '?abc'
+                # else:
+                #    value = x * y
+                value = i
+                i += 1
                 self.set(x, y, value)
 
     def evaluate(self, item):
+        u"""
+        Looks at cell contents to calculate result for each one.
+        """
         if isinstance(item, basestring):
             if item.startswith('?'):
                 s = 'XXX'
