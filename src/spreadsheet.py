@@ -104,9 +104,7 @@ class Spreadsheet(VanillaBaseObject):
 
     def mouseDown(self, event):
         self._mouse.p = p = event.locationInWindow()
-        print p
         self._mouse.xy = xy = self.mouse2Cell(p.x, p.y)
-        # print 'cell', xy
         self._mouse.modifiers = modifiers = event.modifierFlags()
         self._mouse.dragging = False
 
@@ -182,11 +180,14 @@ class Spreadsheet(VanillaBaseObject):
 
     #   C O N V E R S I O N
 
-    def mouse2Cell(self, x, y):
-        (ox, oy), (ow, oh) = self.getVisibleScrollRect()
-        print ox, oy, ow, oh
-        x = min(len(self._cols), int(x / self.W) - 1)
-        y = min(len(self._rows) - 1, int((oy + oh - y) / self.H))
+    def mouse2Cell(self, px, py):
+        # (ox, oy), (ow, oh) = self.getVisibleScrollRect()
+        # print oy, oh
+        # print self._height
+        x = int(px / self.W)
+        y = len(self._rows) - int((py - (self.H / 2)) / self.H)
+        print y
+        # y = int((oy + oh - py) / self.H)
         return x, y
 
     def cell2Mouse(self, x, y=None):
