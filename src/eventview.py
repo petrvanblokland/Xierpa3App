@@ -19,6 +19,9 @@ class EventView(NSView):
     """
 
     def isFlipped(self):
+        u"""
+        Should flip around y axis.
+        """
         return True
 
     def isOpaque(self):

@@ -43,13 +43,13 @@ class Spreadsheet(VanillaBaseObject):
         self._rows = range(rows)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
-        print self._width, self._height
 
         # Set view.
         self._nsObject = view = EventView.alloc().init()
         view.setModel(self)
-        view.setFrame_(((0, 0), (1000, 800)))
+        view.setFrame_(((0, 0), (self._width, self._height)))
         # self._setAutosizingFromPosSize(posSize)
+
         self.clearMouse()
         self._cells = {}
         self._selected = set() # Set (x,y) of selected cells coordinates.
@@ -305,15 +305,10 @@ class Spreadsheet(VanillaBaseObject):
                 box = NSMakeRect(px, py, self.W - 1, self.H - 1)
                 path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
-                self.text('bla', px, py)
+                str = '%d, %d' % (x, y)
+                self.text(str, px, py)
 
         '''
-        # Draw the vertical lines of columns and the column names
-        for x, name in enumerate(self._cols):
-            path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN + x * self.W, vy, 1, vy + vh))
-            path.fill()
-            # self.text(name, x, 0)
-
         # Draw the selected cells as color rectangle
         self.setHighlight()
 
