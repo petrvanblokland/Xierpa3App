@@ -183,13 +183,13 @@ class Spreadsheet(VanillaBaseObject):
         (cx, cy), (cw, ch) = self.getVisibleScrollRect()
         print cx, cy, cw, ch
 
-        rx = (cx + px) # Relative x, clipping x and point x combined, plus half a cell width.
+        rx = (cx + px) # Relative x, clipping x and point x combined.
         x = int(rx / self.W)
         ry = py + cy
         height = self.getWindowHeight()
-        cdiff = height - ch
+        cdiff = height - ch + 42 # Compensating 42 for initial difference, should go to initialization.
         print cdiff
-        print ry
+        ry += cdiff
         y = int(ry / self.H)
         # print y
         y = len(self._rows) + 1 - y
