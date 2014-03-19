@@ -19,6 +19,7 @@ from vanilla import VanillaBaseObject, EditText
 from random import random
 from mouse import Mouse
 from eventview import EventView
+import string
 
 class Spreadsheet(VanillaBaseObject):
 
@@ -120,11 +121,13 @@ class Spreadsheet(VanillaBaseObject):
         if len(self._selected) == 1:
             (ox, oy), (ow, oh) = self.getVisibleScrollRect()
             (x, y) = list(self._selected)[0]
-            y_flipped = len(self._rows) - y - 1 # Flip y.
-            px, py = self.cell2Mouse(x, y_flipped)
-            self.editCell.set(self[(x, y)])
-            self.editCell.setPosSize((px, py, self.W, self.H))
-            self.editCell.show(True)
+
+            if x != 0 and y != 0:
+                y_flipped = len(self._rows) - y - 1 # Flip y.
+                px, py = self.cell2Mouse(x, y_flipped)
+                self.editCell.set(self[(x, y)])
+                self.editCell.setPosSize((px, py, self.W, self.H))
+                self.editCell.show(True)
         else:
             self.editCell.show(False)
 
@@ -247,12 +250,29 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Initializes cell values.
         """
+        alphabet = string.ascii_lowercase
         i = 0
+        j = 1
+        k = 0
 
         for y in range(len(self._rows)):
             for x in range(len(self._cols)):
-                value = i
-                i += 1
+                if x == 0 and y == 0:
+                  value = ''
+                elif x == 0:
+                    # set number.
+                    value = j
+                    j += 1
+                elif y == 0:
+                    if k <= len(alphabet):
+                        value = alphabet[k]
+                    else:
+                        factor = len(alphabet) % k
+                        value = 'bla'
+                    k += 1
+                else:
+                    value = i
+                    i += 1
                 self.set(x, y, value)
 
     def evaluate(self, item):
@@ -292,6 +312,9 @@ class Spreadsheet(VanillaBaseObject):
     def setHighlight(self):
         NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 0, .4).set()
 
+    def setRGBA(self, r, g, b, a):
+        NSColor.colorWithCalibratedRed_green_blue_alpha_(r, g, b, a).set()
+
     def drawGrid(self, rect):
         u"""
         Draw the grid lines of the cells and labels of the columns.
@@ -304,15 +327,17 @@ class Spreadsheet(VanillaBaseObject):
             px = x * self.W
             for y in self._rows:
                 py = y * self.H
-                if y % 2 == 0:
+                box = NSMakeRect(px, py, self.W - 1, self.H - 1)
+
+                if x == 0 or y == 0:
+                    self.setRGBA(0, 0, 0, .3)
+                elif y % 2 == 0:
                     self.setLight()
                 else:
                     self.setDark()
-                box = NSMakeRect(px, py, self.W - 1, self.H - 1)
+
                 path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
-                # str = '%d, %d' % (x, y)
-                # self.text(str, px, py)
 
     def drawSelected(self):
         # Draw the selected cells as color rectangle
