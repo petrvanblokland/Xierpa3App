@@ -125,7 +125,6 @@ class Spreadsheet(VanillaBaseObject):
         """
         if len(self._selected) == 1:
             (ox, oy), (ow, oh) = self.getVisibleScrollRect()
-            print ox, oy, ow, oh
             xy = list(self._selected)[0]
             px, py = self.cell2Mouse(xy)
             self.editCell.set(self[xy])
@@ -181,13 +180,20 @@ class Spreadsheet(VanillaBaseObject):
     #   C O N V E R S I O N
 
     def mouse2Cell(self, px, py):
-        # (ox, oy), (ow, oh) = self.getVisibleScrollRect()
-        # print oy, oh
-        # print self._height
-        x = int(px / self.W)
-        y = len(self._rows) - int((py - (self.H / 2)) / self.H)
-        print y
-        # y = int((oy + oh - py) / self.H)
+        (cx, cy), (cw, ch) = self.getVisibleScrollRect()
+        print cx, cy, cw, ch
+
+        rx = (cx + px) # Relative x, clipping x and point x combined, plus half a cell width.
+        x = int(rx / self.W)
+        ry = py + cy
+        height = self.getWindowHeight()
+        cdiff = height - ch
+        print cdiff
+        print ry
+        y = int(ry / self.H)
+        # print y
+        y = len(self._rows) + 1 - y
+        # print y
         return x, y
 
     def cell2Mouse(self, x, y=None):

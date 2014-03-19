@@ -23,10 +23,10 @@ class Xierpa3Window(Constants):
         """
         self.paths = []
         self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
-                                closable=True, minSize=(200, 200), maxSize=(2000, 2000))
+                                closable=True, minSize=(200, 200), maxSize=(1600, 756))
         spreadsheet = self.getSpreadSheet()
         view = spreadsheet.getView()
-        self.w.scrollView = vanilla.ScrollView((10, 10, -10, -10), view)
+        self.w.scrollView = vanilla.ScrollView((0, 0, 0, 0), view)
         self.w.open()
 
 
