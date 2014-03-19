@@ -37,13 +37,13 @@ class Spreadsheet(VanillaBaseObject):
         indicating the number of columns, or it can be a list of names for all columns. The same applies to the
         <i>rows</i> attribute.
         """
+        self._cells = {}
         self._parent = parent
         self._posSize = posSize
         self._cols = range(cols)
         self._rows = range(rows)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
-        self._cells = {}
         self._selected = set() # Set (x,y) of selected cells coordinates.
 
         # Set view.
@@ -102,13 +102,13 @@ class Spreadsheet(VanillaBaseObject):
         self._mouse.modifiers = modifiers = event.modifierFlags()
         self._mouse.dragging = False
 
-        # Cmd-key, toggle current position
         if modifiers & NSCommandKeyMask:
+            # Cmd-key, toggle current position.
             self.toggleSelect(xy)
         elif modifiers & NSShiftKeyMask:
             self.marqueeSelect(xy)
         else:
-            # Otherwise clear selection and set the current position
+            # Otherwise clear selection and set the current position.
             self.clearSelection()
             self.select(xy)
         self.update()
@@ -119,14 +119,15 @@ class Spreadsheet(VanillaBaseObject):
         """
         if len(self._selected) == 1:
             (ox, oy), (ow, oh) = self.getVisibleScrollRect()
-            xy = list(self._selected)[0]
-            px, py = self.cell2Mouse(xy)
-            self.editCell.set(self[xy])
-            # print xy, px, py, self._height - 200
-            self.editCell.setPosSize((px, self._height - 200, self.W, self.H))
+            (x, y) = list(self._selected)[0]
+            y_flipped = len(self._rows) - y - 1 # Flip y.
+            px, py = self.cell2Mouse(x, y_flipped)
+            self.editCell.set(self[(x, y)])
+            self.editCell.setPosSize((px, py, self.W, self.H))
             self.editCell.show(True)
         else:
             self.editCell.show(False)
+
         self._mouse.dragging = False
         self.update()
 
@@ -175,7 +176,7 @@ class Spreadsheet(VanillaBaseObject):
 
     def mouse2Cell(self, px, py):
         u"""
-        Converts point coordinates to discrete cell coordinates. Compensates for clipping frame by adding masked
+        Converts pixel coordinates to discrete cell coordinates. Compensates for clipping frame by adding masked
         pixels to x and masked pixels plus difference between clipping frame height and window height to y.
         """
         (cx, cy), (_, ch) = self.getVisibleScrollRect()
@@ -191,10 +192,11 @@ class Spreadsheet(VanillaBaseObject):
         y = len(self._rows) + 1 - y
         return x, y
 
-    def cell2Mouse(self, x, y=None):
-        if y is None:
-            x, y = x
-        return (x + 1) * self.W, y * self.H
+    def cell2Mouse(self, x, y):
+        u"""
+        Converts cell coordinates to pixel coordinates.
+        """
+        return x * self.W, y * self.H
 
     def getVisibleScrollRect(self):
         u"""
@@ -234,7 +236,7 @@ class Spreadsheet(VanillaBaseObject):
 
     def cols(self, row):
         u"""
-        Answer a list of column cells at the row position.
+        Answers a list of column cells at the row position.
         """
         cols = []
         for x in range(len(self._cols)):
@@ -245,15 +247,10 @@ class Spreadsheet(VanillaBaseObject):
         u"""
         Initializes cell values.
         """
-
         i = 0
 
-        for x in range(len(self._cols)):
-            for y in range(len(self._rows)):
-                # if x == y:
-                #    value = '?abc'
-                # else:
-                #    value = x * y
+        for y in range(len(self._rows)):
+            for x in range(len(self._cols)):
                 value = i
                 i += 1
                 self.set(x, y, value)
@@ -283,10 +280,11 @@ class Spreadsheet(VanillaBaseObject):
         Render the cells that fall inside rectangle.
         """
         self.drawGrid(rect)
-        # self.drawCells(rect)
+        self.drawSelected()
+        self.drawCells(rect)
 
     def setLight(self):
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 1, 0.5).set()
+        NSColor.colorWithCalibratedRed_green_blue_alpha_(0.7, 0.7, 0.7, 0.5).set()
 
     def setDark(self):
         NSColor.colorWithCalibratedRed_green_blue_alpha_(0, 0, 0, .1).set()
@@ -316,6 +314,7 @@ class Spreadsheet(VanillaBaseObject):
                 # str = '%d, %d' % (x, y)
                 # self.text(str, px, py)
 
+    def drawSelected(self):
         # Draw the selected cells as color rectangle
         self.setHighlight()
 
@@ -331,15 +330,11 @@ class Spreadsheet(VanillaBaseObject):
         Draw the evaluated values of the all cells, if they are inside the visible update rectangle.
         """
         (vy, vx), (vw, vh) = rect
-        attrs = {NSFontAttributeName : NSFont.fontWithName_size_("Verdana", 12),
-                NSForegroundColorAttributeName : NSColor.blackColor()
-        }
 
         for (x, y), item in self.items():
             # print x, y, vx, vy, vw, vh, item
             px, py = self.cell2Mouse(x, y)
-            if vy <= py < vy + vh:
-                self.text(self.evaluate(item), px, py, attrs)
+            self.text(self.evaluate(item), px, py)
 
     def text(self, txt, x, y, attrs=None, align='right'):
         u"""
