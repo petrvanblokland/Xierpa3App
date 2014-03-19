@@ -265,7 +265,7 @@ class Spreadsheet(VanillaBaseObject):
                     j += 1
                 elif y == 0:
                     if k <= len(alphabet):
-                        value = alphabet[k]
+                        value = alphabet[k].upper()
                     else:
                         factor = len(alphabet) % k
                         value = 'bla'
@@ -349,6 +349,12 @@ class Spreadsheet(VanillaBaseObject):
             box = NSMakeRect(px, py, self.W - 1, self.H - 1)
             path = NSBezierPath.bezierPathWithRect_(box)
             path.fill()
+            box = NSMakeRect(0, py, self.W - 1, self.H - 1)
+            path = NSBezierPath.bezierPathWithRect_(box)
+            path.fill()
+            box = NSMakeRect(px, 0, self.W - 1, self.H - 1)
+            path = NSBezierPath.bezierPathWithRect_(box)
+            path.fill()
 
     def drawCells(self, rect):
         u"""
@@ -357,9 +363,11 @@ class Spreadsheet(VanillaBaseObject):
         (vy, vx), (vw, vh) = rect
 
         for (x, y), item in self.items():
-            # print x, y, vx, vy, vw, vh, item
             px, py = self.cell2Mouse(x, y)
-            self.text(self.evaluate(item), px, py)
+            align = 'right'
+            if x == 0 or y == 0:
+                align = 'center'
+            self.text(self.evaluate(item), px, py, align=align)
 
     def text(self, txt, x, y, attrs=None, align='right'):
         u"""
@@ -370,11 +378,14 @@ class Spreadsheet(VanillaBaseObject):
             txt = `txt`
 
         attrs = attrs or self.defaultTextAttributes
-        # if align == 'right':
-        #    w = self.getStringWidth(txt, attrs)
-        #    offset = self.MARGIN - w - self.CELLMARGIN
-        # else:
-        offset = self.CELLMARGIN
+        w = self.getStringWidth(txt, attrs)
+
+        if align == 'right':
+            offset = self.MARGIN - w - self.CELLMARGIN
+        elif align == 'center':
+            offset = (self.MARGIN - w - self.CELLMARGIN) / 2
+        else:
+            offset = self.CELLMARGIN
         text = NSAttributedString.alloc().initWithString_attributes_(txt, attrs)
 
         try:
