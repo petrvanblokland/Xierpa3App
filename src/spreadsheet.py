@@ -103,11 +103,10 @@ class Spreadsheet(VanillaBaseObject):
     #   E V E N T S
 
     def mouseDown(self, event):
-        print 'mousedown', event
         self._mouse.p = p = event.locationInWindow()
-        print 'position', p
+        print p
         self._mouse.xy = xy = self.mouse2Cell(p.x, p.y)
-        print 'cell', xy
+        # print 'cell', xy
         self._mouse.modifiers = modifiers = event.modifierFlags()
         self._mouse.dragging = False
 
@@ -116,19 +115,23 @@ class Spreadsheet(VanillaBaseObject):
             self.toggleSelect(xy)
         elif modifiers & NSShiftKeyMask:
             self.marqueeSelect(xy)
-        else: # Otherwise clear selection and set the current position
+        else:
+            # Otherwise clear selection and set the current position
             self.clearSelection()
             self.select(xy)
         self.update()
 
     def mouseUp(self, event):
-        print 'mouseup', event
+        u"""
+        Shows edit cell with contents.
+        """
         if len(self._selected) == 1:
             (ox, oy), (ow, oh) = self.getVisibleScrollRect()
+            print ox, oy, ow, oh
             xy = list(self._selected)[0]
             px, py = self.cell2Mouse(xy)
             self.editCell.set(self[xy])
-            print xy, px, py, self._height - 200
+            # print xy, px, py, self._height - 200
             self.editCell.setPosSize((px, self._height - 200, self.W, self.H))
             self.editCell.show(True)
         else:
@@ -181,7 +184,10 @@ class Spreadsheet(VanillaBaseObject):
 
     def mouse2Cell(self, x, y):
         (ox, oy), (ow, oh) = self.getVisibleScrollRect()
-        return min(len(self._cols), int(x / self.W) - 1), min(len(self._rows) - 1, int((oy + oh - y) / self.H))
+        print ox, oy, ow, oh
+        x = min(len(self._cols), int(x / self.W) - 1)
+        y = min(len(self._rows) - 1, int((oy + oh - y) / self.H))
+        return x, y
 
     def cell2Mouse(self, x, y=None):
         if y is None:
@@ -305,19 +311,18 @@ class Spreadsheet(VanillaBaseObject):
                 box = NSMakeRect(px, py, self.W - 1, self.H - 1)
                 path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
-                str = '%d, %d' % (x, y)
-                self.text(str, px, py)
+                # str = '%d, %d' % (x, y)
+                # self.text(str, px, py)
 
-        '''
         # Draw the selected cells as color rectangle
         self.setHighlight()
 
         for x, y in self._selected:
             py = y * self.H
-            if vy <= py <= vy + vh:
-                path = NSBezierPath.bezierPathWithRect_(NSMakeRect(self.MARGIN + x * self.W, py, self.W, self.H))
-                path.fill()
-        '''
+            px = x * self.W
+            box = NSMakeRect(px, py, self.W - 1, self.H - 1)
+            path = NSBezierPath.bezierPathWithRect_(box)
+            path.fill()
 
     def drawCells(self, rect):
         u"""
