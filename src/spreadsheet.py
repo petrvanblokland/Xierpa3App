@@ -14,8 +14,8 @@
 import weakref
 
 from AppKit import *
-# from vanilla import VanillaBaseObject
-from vanilla import *
+from vanilla import VanillaBaseObject, EditText
+# from vanilla import *
 from random import random
 from mouse import Mouse
 from eventview import EventView
@@ -180,12 +180,13 @@ class Spreadsheet(VanillaBaseObject):
         """
         (cx, cy), (_, ch) = self.getVisibleScrollRect()
 
-        rx = (cx + px) # Relative x, clipping x and point x combined.
-        x = int(rx / self.W)
-        ry = py + cy # Relative y, clipping y and point y combined.
+        rx = cx + px # Relative x, clipping x and point x combined.
+        ry = py - cy # Relative y, clipping y and point y combined.
         height = self.getWindowHeight()
         cdiff = height - ch + 42 # Compensating 42 for initial difference, should go to initialization.
         ry += cdiff
+
+        x = int(rx / self.W)
         y = int(ry / self.H)
         y = len(self._rows) + 1 - y
         return x, y
