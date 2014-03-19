@@ -43,31 +43,24 @@ class Spreadsheet(VanillaBaseObject):
         self._rows = range(rows)
         self._width = len(self._cols) * self.W
         self._height = len(self._rows) * self.H
-
-        # Set view.
-        self._nsObject = view = EventView.alloc().init()
-        view.setModel(self)
-        view.setFrame_(((0, 0), (self._width, self._height)))
-        # self._setAutosizingFromPosSize(posSize)
-
-        self.clearMouse()
         self._cells = {}
         self._selected = set() # Set (x,y) of selected cells coordinates.
 
-        # Single edit cell in top-left corner.
-        self.editCell = EditText((0, 0, self.W, self.H), callback=self.editCellCallback)
-        # self.editCell.show(True)
+        # Set view.
+        self._nsObject = view = EventView.alloc().init()
+        view.setFrame_(((0, 0), (self._width, self._height)))
+        view.setModel(self)
+        self.clearMouse()
 
-        self._model = model # Source data for the cells, interpreted by the inheriting fill method.
+        # self._setAutosizingFromPosSize(posSize)
+
+        self.editCell = EditText((0, 0, self.W, self.H), callback=self.editCellCallback)
+        self.editCell.show(False)
+
         self.fill()
 
-        # print self.getWindowHeight(), len(self._rows), self._height, self.H
-
-
     def getParent(self):
-        # if hasattr(self, '_parent'):
         return self._parent
-        # return None
 
     def setParent(self, parent):
         self._parent = weakref.ref(parent)
@@ -79,7 +72,8 @@ class Spreadsheet(VanillaBaseObject):
         self._mouse = Mouse()
 
     def getModel(self):
-        return self._model
+        # return self._model
+        return self
 
     def getView(self):
         return self._nsObject
@@ -180,20 +174,20 @@ class Spreadsheet(VanillaBaseObject):
     #   C O N V E R S I O N
 
     def mouse2Cell(self, px, py):
-        (cx, cy), (cw, ch) = self.getVisibleScrollRect()
-        print cx, cy, cw, ch
+        u"""
+        Converts point coordinates to discrete cell coordinates. Compensates for clipping frame by adding masked
+        pixels to x and masked pixels plus difference between clipping frame height and window height to y.
+        """
+        (cx, cy), (_, ch) = self.getVisibleScrollRect()
 
         rx = (cx + px) # Relative x, clipping x and point x combined.
         x = int(rx / self.W)
-        ry = py + cy
+        ry = py + cy # Relative y, clipping y and point y combined.
         height = self.getWindowHeight()
         cdiff = height - ch + 42 # Compensating 42 for initial difference, should go to initialization.
-        print cdiff
         ry += cdiff
         y = int(ry / self.H)
-        # print y
         y = len(self._rows) + 1 - y
-        # print y
         return x, y
 
     def cell2Mouse(self, x, y=None):
