@@ -297,7 +297,7 @@ class Spreadsheet(VanillaBaseObject):
 
     def draw(self, rect=None):
         u"""
-        Render the cells that fall inside rectangle.
+        Renders the cells that fall inside rectangle.
         """
         self.drawGrid(rect)
         self.drawSelected()
@@ -308,7 +308,7 @@ class Spreadsheet(VanillaBaseObject):
 
     def drawGrid(self, rect):
         u"""
-        Draw the grid lines of the cells and labels of the columns.
+        Draws the grid lines of the cells and labels of the columns.
         """
         (vy, vx), (vw, vh) = rect
         height = self.getWindowHeight()
@@ -331,7 +331,9 @@ class Spreadsheet(VanillaBaseObject):
                 path.fill()
 
     def drawSelected(self):
-        # Draw the selected cells as color rectangle
+        u"""
+        Draws the selected cells as color rectangle.
+        """
         self.setRGBA(1, 1, 0, .4)
 
         for x, y in self._selected:
