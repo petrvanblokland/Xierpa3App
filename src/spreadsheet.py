@@ -303,15 +303,6 @@ class Spreadsheet(VanillaBaseObject):
         self.drawSelected()
         self.drawCells(rect)
 
-    def setLight(self):
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(0.7, 0.7, 0.7, 0.5).set()
-
-    def setDark(self):
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(0, 0, 0, .1).set()
-
-    def setHighlight(self):
-        NSColor.colorWithCalibratedRed_green_blue_alpha_(1, 1, 0, .4).set()
-
     def setRGBA(self, r, g, b, a):
         NSColor.colorWithCalibratedRed_green_blue_alpha_(r, g, b, a).set()
 
@@ -332,16 +323,16 @@ class Spreadsheet(VanillaBaseObject):
                 if x == 0 or y == 0:
                     self.setRGBA(0, 0, 0, .3)
                 elif y % 2 == 0:
-                    self.setLight()
+                    self.setRGBA(0.7, 0.7, 0.7, 0.5)
                 else:
-                    self.setDark()
+                    self.setRGBA(0, 0, 0, .1)
 
                 path = NSBezierPath.bezierPathWithRect_(box)
                 path.fill()
 
     def drawSelected(self):
         # Draw the selected cells as color rectangle
-        self.setHighlight()
+        self.setRGBA(1, 1, 0, .4)
 
         for x, y in self._selected:
             py = y * self.H

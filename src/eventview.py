@@ -15,7 +15,7 @@ from AppKit import NSView
 
 class EventView(NSView):
     u"""
-    Events for a view.
+    View with basic event handlers.
     """
 
     def isFlipped(self):
