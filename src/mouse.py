@@ -1,10 +1,14 @@
 # -*- coding: UTF-8 -*-
+# -----------------------------------------------------------------------------
+#    RoboFlight
+#    (c) 2010 buro@petr.com, www.petr.com
 #
-#    X I E R P A   3
-#    OS X Application (c) 2014 buro@petr.com, www.petr.com, www.xierpa.com.
-#    Authors: Petr van Blokland, Michiel Kauw–A–Tjoe.
-#
+#    R O B O F L I G H T
 #    No distribution without permission.
+#
+# -----------------------------------------------------------------------------
+#
+#    mouse.py
 #
 
 class Mouse(object):
