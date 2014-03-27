@@ -15,7 +15,6 @@ import weakref
 
 from AppKit import *
 from vanilla import VanillaBaseObject, EditText
-# from vanilla import *
 from random import random
 from mouse import Mouse
 from eventview import EventView
