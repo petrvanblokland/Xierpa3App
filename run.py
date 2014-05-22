@@ -9,6 +9,8 @@
 #
 #   run.py
 #
+#   http://twistedmatrix.com/documents/13.0.0/api/twisted.internet._threadedselect.html
+#
 #
 import os
 from PyObjCTools import AppHelper
@@ -16,15 +18,6 @@ from AppKit import NSApplication, NSApp, NSBundle, NSLog # @UnresolvedImport
 import objc
 objc.setVerbose(True) # @UndefinedVariable
 
-def writeToLog(message):
-    import logging
-    logging.basicConfig(filename=os.path.expanduser('~/example.log'),level=logging.DEBUG)
-    log = logging.getLogger()
-    log.exception(message)
-
-def postMortem():
-    import pdb
-    pdb.post_mortem()
 
 def cocoaLog(message):
     NSLog(message)
@@ -34,14 +27,16 @@ def printTraceback():
     print traceback.format_exc()
 
 try:
+    # Specialized reactor for integrating with arbitrary foreign event loop, such as those you find in GUI toolkits.
+    from twisted.internet._threadedselect import install
+    reactor = install()
+
     # import modules containing classes required to start application and load MainMenu.nib
     import AppDelegate
 except Exception, e:
     message = "Error running BuroFont application, %s" % e
     cocoaLog(message)
-    writeToLog(message)
     printTraceback()
-    postMortem()
 
 app = NSApplication.sharedApplication()
 nibPath = os.path.join(os.path.dirname(__file__), "dist", "BuroFont.app", "Contents", "Resources", "en.lproj", "MainMenu.nib")
