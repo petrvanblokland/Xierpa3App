@@ -1,18 +1,19 @@
 # -*- coding: UTF-8 -*-
+# -----------------------------------------------------------------------------
+#    xierpa server
+#    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.xierpa.com
+#    
+#    X I E R P A  3  A P P
+#    Distribution by the MIT License.
 #
-#    X I E R P A   3
-#    OS X Application (c) 2014 buro@petr.com, www.petr.com, www.xierpa.com.
-#    Authors: Petr van Blokland, Michiel Kauw–A–Tjoe.
+# -----------------------------------------------------------------------------
 #
-#    No distribution without permission.
+#    xierpa3window.py
 #
-
-from AppKit import NSView, NSColor, NSRectFill
 import vanilla
-from constants import Constants
-from spreadsheet import Spreadsheet
+from constants import C
 
-class Xierpa3Window(Constants):
+class Xierpa3Window(object):
     u"""
     Implementation of a vanilla-based GUI for the Xierpa 3 environment.
     """
@@ -23,9 +24,7 @@ class Xierpa3Window(Constants):
         """
         self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
                                 closable=True, minSize=(200, 200), maxSize=(1600, 1000))
-        spreadsheet = self.getSpreadSheet()
-        view = spreadsheet.getView()
-        self.w.scrollView = vanilla.ScrollView((0, 0, 0, 0), view)
+        self.w.templates = self.getXierpa3Options()
         self.w.open()
 
 
@@ -36,46 +35,3 @@ class Xierpa3Window(Constants):
     def radioGroupCallback(self, sender):
         print "radio group edit!", sender.get()
 
-    def getSpreadSheet(self):
-        cols = 20
-        rows = 36
-        sh = Spreadsheet(self, (0, 0, 0, 0), cols, rows)
-        sh.fill()
-        return sh
-
-class StyleFloqSheet(Spreadsheet):
-
-    FIELDS = ('leftMargin', 'width', 'rightMargin', 'stem', 'roundStem', 'bar', 'roundBar')
-
-    def fill(self):
-        u"""Initial call or glyph changed: fill the cell data"""
-        styleFloq = self.getModel()
-        y = 0
-        for glyphName in sorted(styleFloq.keys()):
-            glyph = styleFloq[glyphName]
-            self[(0, y)] = glyphName
-            for x, field in enumerate(self.FIELDS):
-                value = getattr(styleFloq[glyphName], field) or ''
-                self[(x + 1, y)] = value
-            y += 1
-
-'''
-class StyleFloqSheetDemo(object):
-
-    def __init__(self):
-        font = CurrentFont()
-
-        if font is not None:
-            self.w = Window((800, 400), "Style Floq Sheet", minSize=(100, 100))
-            cols = ('Name', 'Uni', 'Left', 'Width', 'Right', 'Stem', 'rStem', 'Bar', 'rBar')
-            rows = len(font.keys())
-
-            styleFloq = floqManager.fromFont(font)
-            # print 'rows', rows
-            self.w.floqSheet = fs = StyleFloqSheet((0, 0, 0, 0), cols, rows, styleFloq)
-            self.w.spreadsheetView = ssv = ScrollView((0, 0, 0, 0), fs.getView())
-            fs.setParent(ssv) # Set parent, so the spreadsheet can find the scrollbar value.
-            self.w.open()
-
-StyleFloqSheetDemo()
-'''
