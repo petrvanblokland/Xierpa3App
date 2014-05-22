@@ -15,8 +15,6 @@ from PyObjCTools import AppHelper
 from src.xierpa3window import Xierpa3Window
 from twisted.internet import reactor
 
-from XierpaConnectionWindowControllerClass import XierpaConnectionWindowController
-
 class XierpaAppDelegate(NSObject):
     u"""
     """
@@ -30,9 +28,7 @@ class XierpaAppDelegate(NSObject):
 
     def applicationDidFinishLaunching_(self, notification):
         reactor.interleave(AppHelper.callAfter)
-        self.newConnectionAction_(None)
         Xierpa3Window()
-
 
 if __name__ == "__main__":
     AppHelper.runEventLoop()
