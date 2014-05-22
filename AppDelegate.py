@@ -10,10 +10,12 @@
 #
 #    xierpa3app.py
 #
+from xierpa3.server.client import Client
 from AppKit import NSObject #@UnresolvedImport
 from PyObjCTools import AppHelper
 from src.xierpa3window import Xierpa3Window
 from twisted.internet import reactor
+from twisted.web import server
 
 class XierpaAppDelegate(NSObject):
     u"""
@@ -27,7 +29,9 @@ class XierpaAppDelegate(NSObject):
         return True
 
     def applicationDidFinishLaunching_(self, notification):
+        site = server.Site(Client())
         reactor.interleave(AppHelper.callAfter)
+        reactor.listenTCP(8060, site) # @UndefinedVariable
         Xierpa3Window()
 
 if __name__ == "__main__":
