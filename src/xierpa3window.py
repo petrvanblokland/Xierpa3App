@@ -10,6 +10,7 @@
 #
 #    xierpa3window.py
 #
+from xierpa3.components.component import Component 
 import vanilla
 from constants import C
 
@@ -22,11 +23,12 @@ class Xierpa3Window(object):
         u"""
         Initialize the window and open it.
         """
-        self.w = vanilla.Window((self.WINDOW_WIDTH, self.WINDOW_HEIGHT), "Xierpa 3",
-                                closable=True, minSize=(200, 200), maxSize=(1600, 1000))
+        self.w = vanilla.Window((C.WINDOW_WIDTH, C.WINDOW_HEIGHT), "Xierpa 3",
+                closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         self.w.templates = self.getXierpa3Options()
         self.w.open()
-
+        
+        self.openServer()
 
     def getXierpa3Options(self):
         options = ["Xierpa 3 Server", "HTML + Sass", "Kirby Template", "WordPress Template"]
@@ -35,3 +37,54 @@ class Xierpa3Window(object):
     def radioGroupCallback(self, sender):
         print "radio group edit!", sender.get()
 
+    # Server
+    
+    def openServer(self):
+        # http://www.cocoawithlove.com/2009/07/simple-extensible-http-server-in-cocoa.html
+        """
+        socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM,
+            IPPROTO_TCP, 0, NULL, NULL);
+        if (!socket)
+        {
+            [self errorWithName:@"Unable to create socket."];
+            return;
+        }
+         
+        int reuse = true;
+        int fileDescriptor = CFSocketGetNative(socket);
+        if (setsockopt(fileDescriptor, SOL_SOCKET, SO_REUSEADDR,
+            (void *)&reuse, sizeof(int)) != 0)
+        {
+            [self errorWithName:@"Unable to set socket options."];
+            return;
+        }
+         
+        struct sockaddr_in address;
+        memset(&address, 0, sizeof(address));
+        address.sin_len = sizeof(address);
+        address.sin_family = AF_INET;
+        address.sin_addr.s_addr = htonl(INADDR_ANY);
+        address.sin_port = htons(HTTP_SERVER_PORT);
+        CFDataRef addressData =
+            CFDataCreate(NULL, (const UInt8 *)&address, sizeof(address));
+        [(id)addressData autorelease];
+         
+        if (CFSocketSetAddress(socket, addressData) != kCFSocketSuccess)
+        {
+            [self errorWithName:@"Unable to bind socket to address."];
+            return;
+        }
+        """
+        # Notification
+        """
+            listeningHandle = [[NSFileHandle alloc]
+        initWithFileDescriptor:fileDescriptor
+        closeOnDealloc:YES];
+     
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+        selector:@selector(receiveIncomingConnectionNotification:)
+        name:NSFileHandleConnectionAcceptedNotification
+        object:nil];
+    [listeningHandle acceptConnectionInBackgroundAndNotify];
+        """

@@ -1,9 +1,5 @@
 from PyObjCTools import AppHelper
 
-import AppDelegate
-import MyBaseGradientView
-import MyBezierGradientView
-import MyRectGradientView
-import MyWindowController
+import AppDelegate #@UnusedImport
 
 AppHelper.runEventLoop()
