@@ -10,10 +10,10 @@
 #
 #    xierpa3app.py
 #
-from xierpa3.server.client import Client
 from AppKit import NSObject #@UnresolvedImport
 from PyObjCTools import AppHelper
 from src.xierpa3window import Xierpa3Window
+from src.client import Client
 from twisted.internet import reactor
 from twisted.web import server
 
@@ -22,15 +22,15 @@ class XierpaAppDelegate(NSObject):
     """
 
     def applicationShouldTerminate_(self, sender):
-        if reactor.running:
-            reactor.addSystemEventTrigger('after', 'shutdown', AppHelper.stopEventLoop)
-            reactor.stop()
+        if reactor.running: #@UndefinedVariable
+            reactor.addSystemEventTrigger('after', 'shutdown', AppHelper.stopEventLoop) #@UndefinedVariable
+            reactor.stop() #@UndefinedVariable
             return False
         return True
 
     def applicationDidFinishLaunching_(self, notification):
         site = server.Site(Client())
-        reactor.interleave(AppHelper.callAfter)
+        reactor.interleave(AppHelper.callAfter) #@UndefinedVariable
         reactor.listenTCP(8060, site) # @UndefinedVariable
         Xierpa3Window()
 
