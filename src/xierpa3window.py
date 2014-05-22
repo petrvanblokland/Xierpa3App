@@ -2,7 +2,7 @@
 # -----------------------------------------------------------------------------
 #    xierpa server
 #    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.xierpa.com
-#    
+#
 #    X I E R P A  3  A P P
 #    Distribution by the MIT License.
 #
@@ -10,7 +10,7 @@
 #
 #    xierpa3window.py
 #
-from xierpa3.components.component import Component 
+from xierpa3.components.component import Component
 import vanilla
 from constants import C
 
@@ -27,7 +27,7 @@ class Xierpa3Window(object):
                 closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         self.w.templates = self.getXierpa3Options()
         self.w.open()
-        
+
         self.openServer()
 
     def getXierpa3Options(self):
@@ -38,7 +38,7 @@ class Xierpa3Window(object):
         print "radio group edit!", sender.get()
 
     # Server
-    
+
     def openServer(self):
         # http://www.cocoawithlove.com/2009/07/simple-extensible-http-server-in-cocoa.html
         """
@@ -49,7 +49,7 @@ class Xierpa3Window(object):
             [self errorWithName:@"Unable to create socket."];
             return;
         }
-         
+
         int reuse = true;
         int fileDescriptor = CFSocketGetNative(socket);
         if (setsockopt(fileDescriptor, SOL_SOCKET, SO_REUSEADDR,
@@ -58,7 +58,7 @@ class Xierpa3Window(object):
             [self errorWithName:@"Unable to set socket options."];
             return;
         }
-         
+
         struct sockaddr_in address;
         memset(&address, 0, sizeof(address));
         address.sin_len = sizeof(address);
@@ -68,7 +68,7 @@ class Xierpa3Window(object):
         CFDataRef addressData =
             CFDataCreate(NULL, (const UInt8 *)&address, sizeof(address));
         [(id)addressData autorelease];
-         
+
         if (CFSocketSetAddress(socket, addressData) != kCFSocketSuccess)
         {
             [self errorWithName:@"Unable to bind socket to address."];
@@ -80,7 +80,7 @@ class Xierpa3Window(object):
             listeningHandle = [[NSFileHandle alloc]
         initWithFileDescriptor:fileDescriptor
         closeOnDealloc:YES];
-     
+
     [[NSNotificationCenter defaultCenter]
         addObserver:self
         selector:@selector(receiveIncomingConnectionNotification:)
