@@ -11,20 +11,21 @@
 #    xierpa3app.py
 #
 import webbrowser
-from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, OneColumnSite, NavigationExample
-from vanilla import RadioGroup, Window, Button
-from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from constants import C
+from vanilla import RadioGroup, Window, Button, CheckBox
+from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
+from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, OneColumnSite
 
 class Xierpa3App(object):
-    u"""
-    Implementation of a vanilla-based GUI for the Xierpa 3 environment.
-    """
+    u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
+    
+    PORT = 8060
+    URL = 'http://localhost:%d' % PORT
+    
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
         ("One column", OneColumnSite()),
-        ("Navigation", NavigationExample()),
         ("DoingByDesign", DoingByDesign()),
     ]        
     def __init__(self):
@@ -32,9 +33,10 @@ class Xierpa3App(object):
         Initialize the window and open it.
         """
         self.w = Window((C.WINDOW_WIDTH, C.WINDOW_HEIGHT), "Xierpa 3",
-                closable=True, minSize=(200, 200), maxSize=(1600, 1000))
+            closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         self.w.optionalSites = RadioGroup((10, 10, 150, 100), self.getSiteLabels(), callback=self.selectSiteCallback)
         self.w.run = Button((10, 140, 150, 24), 'Open', callback=self.openSiteCallback)
+        self.w.forceCss = CheckBox((180, 10, 150, 24), 'Force make CSS')
         self.w.open()
 
     def getSiteLabels(self):
@@ -47,7 +49,10 @@ class Xierpa3App(object):
         pass
         
     def openSiteCallback(self, sender):
-        webbrowser.open('http://localhost:8060')
+        url = self.URL
+        if self.w.forceCss.get():
+            url += '/force'
+        webbrowser.open(url)
 
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
