@@ -30,5 +30,4 @@ class XierpaAppDelegate(NSObject):
         reactor.interleave(AppHelper.callAfter)
         Xierpa3Window()
 
-if __name__ == "__main__":
-    AppHelper.runEventLoop()
+AppHelper.runEventLoop()

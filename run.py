@@ -39,7 +39,7 @@ except Exception, e:
     printTraceback()
 
 app = NSApplication.sharedApplication()
-nibPath = os.path.join(os.path.dirname(__file__), "dist", "BuroFont.app", "Contents", "Resources", "en.lproj", "MainMenu.nib")
+nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa\ 3.app", "Contents", "Resources", "English.lproj", "MainMenu.nib")
 NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None) # @UndefinedVariable
 delegate = AppDelegate.XierpaAppDelegate.alloc().init() # @UndefinedVariable
 app.setDelegate_(delegate)
