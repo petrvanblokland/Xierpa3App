@@ -12,7 +12,7 @@
 #
 import webbrowser
 from constants import C
-from vanilla import RadioGroup, Window, Button, CheckBox
+from vanilla import RadioGroup, Window, Button, CheckBox, EditText
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, OneColumnSite
 
@@ -34,9 +34,15 @@ class Xierpa3App(object):
         """
         self.w = Window((C.WINDOW_WIDTH, C.WINDOW_HEIGHT), "Xierpa 3",
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
-        self.w.optionalSites = RadioGroup((10, 10, 150, 100), self.getSiteLabels(), callback=self.selectSiteCallback)
-        self.w.run = Button((10, 140, 150, 24), 'Open', callback=self.openSiteCallback)
-        self.w.forceCss = CheckBox((180, 10, 150, 24), 'Force make CSS')
+        siteLabels = self.getSiteLabels()
+        y = len(siteLabels)*20
+        self.w.optionalSites = RadioGroup((10, 10, 150, y), siteLabels, 
+            callback=self.selectSiteCallback, sizeStyle='small')
+        self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
+        self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
+        self.w.makeSite = Button((10, y+70, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
+        self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
+        self.w.console = EditText((10, -200, -10, -10), sizeStyle='small')
         self.w.open()
 
     def getSiteLabels(self):
@@ -54,7 +60,24 @@ class Xierpa3App(object):
             url += '/force'
         webbrowser.open(url)
 
+    def openCssCallback(self, sender):
+        url = self.URL
+        if self.w.forceCss.get():
+            url += '/force'
+        webbrowser.open(url + '/css/style.css')
+
+    def makeSiteCallback(self, sender):
+        _, site = self.SITE_LABELS[self.w.optionalSites.get()]
+        site.make()
+        
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
+    
+    def handleRequest(self, httprequest, site):
+        self.addConsole(`httprequest` + ' ' + `site.e.form`)
+        
+    def addConsole(self, s):
+        self.w.console.set(self.w.console.get() + '\n' + s)
+        
     

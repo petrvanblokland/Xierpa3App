@@ -19,7 +19,7 @@ Usage:
 
 from setuptools import setup
 
-APP = ['xierpa3app.py']
+APP = ['src/xierpa3app.py']
 DATA_FILES = ['Resources/English.lproj', ]
 OPTIONS = {'argv_emulation': True, 'iconfile': 'images/icon.icns'}
 

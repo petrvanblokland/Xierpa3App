@@ -16,4 +16,6 @@ class Client(TwistedClient):
     def getSite(self, httprequest):
         site = self.app.getSite()
         site.e = Environment(request=httprequest)
+        # Callback to application, to allow showing request, handle form stuff, etc.
+        self.app.handleRequest(httprequest, site) 
         return site
