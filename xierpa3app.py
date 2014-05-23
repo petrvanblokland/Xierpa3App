@@ -35,4 +35,3 @@ class XierpaAppDelegate(NSObject):
         reactor.interleave(AppHelper.callAfter) #@UndefinedVariable
         reactor.listenTCP(8060, site) # @UndefinedVariable
 
-AppHelper.runEventLoop()

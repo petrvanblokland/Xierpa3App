@@ -32,16 +32,16 @@ try:
     reactor = install()
 
     # import modules containing classes required to start application and load MainMenu.nib
-    import AppDelegate
+    import xierpa3app
 except Exception, e:
     message = "Error running BuroFont application, %s" % e
     cocoaLog(message)
     printTraceback()
 
 app = NSApplication.sharedApplication()
-nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa\ 3.app", "Contents", "Resources", "English.lproj", "MainMenu.nib")
+nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa 3.app", "Contents", "Resources", "English.lproj", "MainMenu.nib")
 NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None) # @UndefinedVariable
-delegate = AppDelegate.XierpaAppDelegate.alloc().init() # @UndefinedVariable
+delegate = xierpa3app.XierpaAppDelegate.alloc().init() # @UndefinedVariable
 app.setDelegate_(delegate)
 
 # Bring app to top
