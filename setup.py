@@ -21,6 +21,5 @@ from setuptools import setup
 
 APP = ['main.py']
 DATA_FILES = ['English.lproj', ]
-OPTIONS = {'argv_emulation': True }
 
-setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, options={'py2app': OPTIONS}, setup_requires=['py2app'],)
+setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, setup_requires=['py2app'],)
