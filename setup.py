@@ -2,7 +2,7 @@
 # -----------------------------------------------------------------------------
 #    xierpa server
 #    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.xierpa.com
-#    
+#
 #    X I E R P A  3  A P P
 #    Distribution by the MIT License.
 #
@@ -19,8 +19,7 @@ Usage:
 
 from setuptools import setup
 
-APP = ['src/xierpa3app.py']
+APP = ['main.py']
 DATA_FILES = ['Resources/English.lproj', ]
-OPTIONS = {'argv_emulation': True, 'iconfile': 'images/icon.icns'}
 
-setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, options={'py2app': OPTIONS}, setup_requires=['py2app'],)
+setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, setup_requires=['py2app'],)

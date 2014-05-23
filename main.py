@@ -1,5 +1,5 @@
 from PyObjCTools import AppHelper
 
-import AppDelegate #@UnusedImport
+import xierpa3app.XierpaAppDelegate #@UnusedImport
 
 AppHelper.runEventLoop()
