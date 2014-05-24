@@ -10,11 +10,11 @@
 #
 #    xierpa3app.py
 #
-import webbrowser
+import os, webbrowser
 from constants import C
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
-from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, OneColumnSite
+from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, OneColumnSite 
 
 class Xierpa3App(object):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -25,6 +25,7 @@ class Xierpa3App(object):
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
+        ("Hello world responsive", HelloWorldResponsive()),
         ("One column", OneColumnSite()),
         ("DoingByDesign", DoingByDesign()),
     ]        
@@ -40,7 +41,8 @@ class Xierpa3App(object):
             callback=self.selectSiteCallback, sizeStyle='small')
         self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
         self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
-        self.w.makeSite = Button((10, y+70, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
+        self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
+        self.w.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
         self.w.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         self.w.console = EditText((10, -200, -10, -10), sizeStyle='small')
@@ -66,6 +68,10 @@ class Xierpa3App(object):
         if self.w.forceCss.get():
             url += '/force'
         webbrowser.open(url + '/css/style.css')
+
+    def openSassCallback(self, sender):
+        url = self.URL
+        #os.open(url + '/css/style.scss')
 
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
