@@ -42,6 +42,7 @@ class Xierpa3App(object):
         self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
         self.w.makeSite = Button((10, y+70, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
+        self.w.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         self.w.console = EditText((10, -200, -10, -10), sizeStyle='small')
         self.w.open()
 
@@ -66,18 +67,20 @@ class Xierpa3App(object):
             url += '/force'
         webbrowser.open(url + '/css/style.css')
 
-    def makeSiteCallback(self, sender):
-        _, site = self.SITE_LABELS[self.w.optionalSites.get()]
-        site.make()
-        
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
-    
+
+    def makeSiteCallback(self, sender):
+        self.getSite().make()
+            
     def handleRequest(self, httprequest, site):
         self.addConsole(`httprequest` + ' ' + `site.e.form`)
         
     def addConsole(self, s):
         self.w.console.set(self.w.console.get() + '\n' + s)
         
+    def getDoIndent(self):
+        u"""Answer true if building output code with indent."""
+        return self.w.doIndent.get()
     
