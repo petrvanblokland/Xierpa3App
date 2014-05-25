@@ -14,7 +14,8 @@ import webbrowser
 from constants import C
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
-from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite
+from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, \
+    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite 
 
 class Xierpa3App(C):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -28,6 +29,7 @@ class Xierpa3App(C):
         ("Hello world responsive", HelloWorldResponsive()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
+        ("Simple website", SimpleWebSite()),
         ("DoingByDesign", DoingByDesign()),
     ]        
     def __init__(self):
