@@ -15,3 +15,9 @@ class C(object):
     WINDOW_WIDTH = 800
     WINDOW_HEIGHT = 600
 
+    #    S C R I P T
+    
+    BASESCRIPT = """
+def CurrentSite():
+    return currentSite
+"""

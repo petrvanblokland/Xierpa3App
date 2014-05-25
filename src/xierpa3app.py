@@ -10,13 +10,13 @@
 #
 #    xierpa3app.py
 #
-import os, webbrowser
+import webbrowser
 from constants import C
-from vanilla import RadioGroup, Window, Button, CheckBox, EditText
+from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite
 
-class Xierpa3App(object):
+class Xierpa3App(C):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
     
     PORT = 8060
@@ -40,13 +40,16 @@ class Xierpa3App(object):
         y = len(siteLabels)*20
         self.w.optionalSites = RadioGroup((10, 10, 150, y), siteLabels, 
             callback=self.selectSiteCallback, sizeStyle='small')
+        self.w.optionalSites.set(0)
         self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
         self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
-        self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
-        self.w.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
+        #self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
+        #self.w.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
         self.w.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         self.w.console = EditText((10, -200, -10, -10), sizeStyle='small')
+        self.w.script = TextEditor((300, 10, -10, -240))
+        self.w.runScript = Button((300, -230, 150, -210), 'Run script', callback=self.runScriptCallback, sizeStyle='small')
         self.w.open()
 
     def getSiteLabels(self):
@@ -54,7 +57,13 @@ class Xierpa3App(object):
         for siteLabel, _ in self.SITE_LABELS:
             siteLabels.append(siteLabel)
         return siteLabels
-            
+     
+    def runScriptCallback(self, sender):
+        src = self.BASESCRIPT + self.w.script.get()
+        cc = compile(src, 'abc', mode='exec')
+        eval(cc, {'currentSite': self.getSite()})
+        #, self.getSite().__dict__)
+               
     def selectSiteCallback(self, sender):
         pass
         
