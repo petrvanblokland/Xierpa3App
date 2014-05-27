@@ -1,0 +1,332 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ECE91934D9C400040845 /* Cocoa.framework */; };
+		CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ECEB1934D9C400040845 /* Python.framework */; };
+		CC45ECF61934D9C400040845 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECF41934D9C400040845 /* InfoPlist.strings */; };
+		CC45ECF81934D9C400040845 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC45ECF71934D9C400040845 /* main.m */; };
+		CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFA1934D9C400040845 /* Credits.rtf */; };
+		CC45ECFE1934D9C400040845 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFD1934D9C400040845 /* main.py */; };
+		CC45ED001934D9C400040845 /* X3AppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFF1934D9C400040845 /* X3AppDelegate.py */; };
+		CC45ED031934D9C400040845 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC45ED011934D9C400040845 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CC45ECE61934D9C400040845 /* Xierpa3App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xierpa3App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC45ECE91934D9C400040845 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		CC45ECEB1934D9C400040845 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = Library/Frameworks/Python.framework; sourceTree = DEVELOPER_DIR; };
+		CC45ECEE1934D9C400040845 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CC45ECEF1934D9C400040845 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CC45ECF01934D9C400040845 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CC45ECF31934D9C400040845 /* Xierpa3App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Xierpa3App-Info.plist"; sourceTree = "<group>"; };
+		CC45ECF51934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CC45ECF71934D9C400040845 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CC45ECF91934D9C400040845 /* Xierpa3App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xierpa3App-Prefix.pch"; sourceTree = "<group>"; };
+		CC45ECFB1934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		CC45ECFD1934D9C400040845 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		CC45ECFF1934D9C400040845 /* X3AppDelegate.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = X3AppDelegate.py; sourceTree = "<group>"; };
+		CC45ED021934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC45ECE31934D9C400040845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */,
+				CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC45ECDB1934C77800040845 = {
+			isa = PBXGroup;
+			children = (
+				CC45ECF11934D9C400040845 /* Xierpa3App */,
+				CC45ECE81934D9C400040845 /* Frameworks */,
+				CC45ECE71934D9C400040845 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC45ECE71934D9C400040845 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC45ECE61934D9C400040845 /* Xierpa3App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC45ECE81934D9C400040845 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC45ECE91934D9C400040845 /* Cocoa.framework */,
+				CC45ECEB1934D9C400040845 /* Python.framework */,
+				CC45ECED1934D9C400040845 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC45ECED1934D9C400040845 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC45ECEE1934D9C400040845 /* AppKit.framework */,
+				CC45ECEF1934D9C400040845 /* CoreData.framework */,
+				CC45ECF01934D9C400040845 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		CC45ECF11934D9C400040845 /* Xierpa3App */ = {
+			isa = PBXGroup;
+			children = (
+				CC45ECFD1934D9C400040845 /* main.py */,
+				CC45ECFF1934D9C400040845 /* X3AppDelegate.py */,
+				CC45ED011934D9C400040845 /* MainMenu.xib */,
+				CC45ECF21934D9C400040845 /* Supporting Files */,
+			);
+			path = Xierpa3App;
+			sourceTree = "<group>";
+		};
+		CC45ECF21934D9C400040845 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC45ECF31934D9C400040845 /* Xierpa3App-Info.plist */,
+				CC45ECF41934D9C400040845 /* InfoPlist.strings */,
+				CC45ECF71934D9C400040845 /* main.m */,
+				CC45ECF91934D9C400040845 /* Xierpa3App-Prefix.pch */,
+				CC45ECFA1934D9C400040845 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC45ECE51934D9C400040845 /* Xierpa3App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC45ED041934D9C400040845 /* Build configuration list for PBXNativeTarget "Xierpa3App" */;
+			buildPhases = (
+				CC45ECE21934D9C400040845 /* Sources */,
+				CC45ECE31934D9C400040845 /* Frameworks */,
+				CC45ECE41934D9C400040845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Xierpa3App;
+			productName = Xierpa3App;
+			productReference = CC45ECE61934D9C400040845 /* Xierpa3App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC45ECDC1934C77800040845 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+			};
+			buildConfigurationList = CC45ECDF1934C77800040845 /* Build configuration list for PBXProject "Xierpa3App" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CC45ECDB1934C77800040845;
+			productRefGroup = CC45ECE71934D9C400040845 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC45ECE51934D9C400040845 /* Xierpa3App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC45ECE41934D9C400040845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC45ECFE1934D9C400040845 /* main.py in Resources */,
+				CC45ED031934D9C400040845 /* MainMenu.xib in Resources */,
+				CC45ECF61934D9C400040845 /* InfoPlist.strings in Resources */,
+				CC45ED001934D9C400040845 /* X3AppDelegate.py in Resources */,
+				CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC45ECE21934D9C400040845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC45ECF81934D9C400040845 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CC45ECF41934D9C400040845 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC45ECF51934D9C400040845 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CC45ECFA1934D9C400040845 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC45ECFB1934D9C400040845 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		CC45ED011934D9C400040845 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC45ED021934D9C400040845 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC45ECE01934C77800040845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		CC45ECE11934C77800040845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		CC45ED051934D9C400040845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Xierpa3App/Xierpa3App-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Xierpa3App/Xierpa3App-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CC45ED061934D9C400040845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Xierpa3App/Xierpa3App-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Xierpa3App/Xierpa3App-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC45ECDF1934C77800040845 /* Build configuration list for PBXProject "Xierpa3App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC45ECE01934C77800040845 /* Debug */,
+				CC45ECE11934C77800040845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC45ED041934D9C400040845 /* Build configuration list for PBXNativeTarget "Xierpa3App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC45ED051934D9C400040845 /* Debug */,
+				CC45ED061934D9C400040845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC45ECDC1934C77800040845 /* Project object */;
+}
