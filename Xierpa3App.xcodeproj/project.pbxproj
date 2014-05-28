@@ -13,9 +13,8 @@
 		CC45ECF81934D9C400040845 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC45ECF71934D9C400040845 /* main.m */; };
 		CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFA1934D9C400040845 /* Credits.rtf */; };
 		CC45ECFE1934D9C400040845 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFD1934D9C400040845 /* main.py */; };
-		CC45ED001934D9C400040845 /* X3AppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFF1934D9C400040845 /* X3AppDelegate.py */; };
 		CC45ED031934D9C400040845 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC45ED011934D9C400040845 /* MainMenu.xib */; };
-		CC45ED081935DDF900040845 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ED071935DDF900040845 /* libpython2.7.dylib */; };
+		CC89B50E1935E4E800095739 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC89B50D1935E4E800095739 /* libpython2.7.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +30,8 @@
 		CC45ECF91934D9C400040845 /* Xierpa3App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xierpa3App-Prefix.pch"; sourceTree = "<group>"; };
 		CC45ECFB1934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		CC45ECFD1934D9C400040845 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
-		CC45ECFF1934D9C400040845 /* X3AppDelegate.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = X3AppDelegate.py; sourceTree = "<group>"; };
 		CC45ED021934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		CC45ED071935DDF900040845 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpython2.7.dylib; sourceTree = "<group>"; };
+		CC89B50D1935E4E800095739 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */,
-				CC45ED081935DDF900040845 /* libpython2.7.dylib in Frameworks */,
+				CC89B50E1935E4E800095739 /* libpython2.7.dylib in Frameworks */,
 				CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +54,7 @@
 				CC45ECF11934D9C400040845 /* Xierpa3App */,
 				CC45ECE81934D9C400040845 /* Frameworks */,
 				CC45ECE71934D9C400040845 /* Products */,
-				CC45ED071935DDF900040845 /* libpython2.7.dylib */,
+				CC89B50D1935E4E800095739 /* libpython2.7.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				CC45ECFD1934D9C400040845 /* main.py */,
-				CC45ECFF1934D9C400040845 /* X3AppDelegate.py */,
 				CC45ED011934D9C400040845 /* MainMenu.xib */,
 				CC45ECF21934D9C400040845 /* Supporting Files */,
 			);
@@ -164,7 +161,6 @@
 				CC45ECFE1934D9C400040845 /* main.py in Resources */,
 				CC45ED031934D9C400040845 /* MainMenu.xib in Resources */,
 				CC45ECF61934D9C400040845 /* InfoPlist.strings in Resources */,
-				CC45ED001934D9C400040845 /* X3AppDelegate.py in Resources */,
 				CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +265,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
@@ -320,6 +317,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_LIBRARY_DIR)/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -347,6 +345,7 @@
 				CC45ED061934D9C400040845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

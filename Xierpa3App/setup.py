@@ -19,7 +19,4 @@ Usage:
 
 from setuptools import setup
 
-APP = ['main.py']
-DATA_FILES = ['Resources/English.lproj', ]
-
-setup(app=APP, name="Xierpa 3", data_files=DATA_FILES, setup_requires=['py2app'],)
+setup(app=['main.py'], name="Xierpa 3", data_files=['en.lproj', ], setup_requires=['py2app'],)

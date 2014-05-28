@@ -26,7 +26,7 @@ reactor = install()
 import xierpa3app
 
 app = NSApplication.sharedApplication()
-nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa 3.app", "Contents", "Resources", "English.lproj", "MainMenu.nib")
+nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa 3.app", "Contents", "Resources", "en.lproj", "MainMenu.nib")
 NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None) # @UndefinedVariable
 delegate = xierpa3app.XierpaAppDelegate.alloc().init() # @UndefinedVariable
 app.setDelegate_(delegate)
