@@ -21,7 +21,7 @@ from setuptools import setup
 
 setup(
     app=['main.py'],
-    name="Xierpa 3",
+    name="Xierpa3",
     data_files=['en.lproj', ],
     setup_requires=['py2app'],
     options=dict(py2app=dict(includes=['lxml.etree', 'lxml._elementpath',]))
