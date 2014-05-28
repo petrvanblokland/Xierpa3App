@@ -15,24 +15,24 @@ from constants import C
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, \
-    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsive
+    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite#, SimpleResponsive
 
 class Xierpa3App(C):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
-    
+
     PORT = 8060
     URL = 'http://localhost:%d' % PORT
-    
+
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
         ("Hello world responsive", HelloWorldResponsive()),
-        ("Simple responsive", SimpleResponsive()),
+        #("Simple responsive", SimpleResponsive()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
         ("DoingByDesign", DoingByDesign()),
-    ]        
+    ]
     def __init__(self):
         u"""
         Initialize the window and open it.
@@ -41,7 +41,7 @@ class Xierpa3App(C):
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         siteLabels = self.getSiteLabels()
         y = len(siteLabels)*20
-        self.w.optionalSites = RadioGroup((10, 10, 150, y), siteLabels, 
+        self.w.optionalSites = RadioGroup((10, 10, 150, y), siteLabels,
             callback=self.selectSiteCallback, sizeStyle='small')
         self.w.optionalSites.set(0)
         self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
@@ -60,16 +60,16 @@ class Xierpa3App(C):
         for siteLabel, _ in self.SITE_LABELS:
             siteLabels.append(siteLabel)
         return siteLabels
-     
+
     def runScriptCallback(self, sender):
         src = self.BASESCRIPT + self.w.script.get()
         cc = compile(src, 'abc', mode='exec')
         eval(cc, {'currentSite': self.getSite()})
         #, self.getSite().__dict__)
-               
+
     def selectSiteCallback(self, sender):
         pass
-        
+
     def openSiteCallback(self, sender):
         url = self.URL
         if self.w.forceCss.get():
@@ -92,14 +92,14 @@ class Xierpa3App(C):
 
     def makeSiteCallback(self, sender):
         self.getSite().make()
-            
+
     def handleRequest(self, httprequest, site):
         self.addConsole(`httprequest` + ' ' + `site.e.form`)
-        
+
     def addConsole(self, s):
         self.w.console.set(self.w.console.get() + '\n' + s)
-        
+
     def getDoIndent(self):
         u"""Answer true if building output code with indent."""
         return self.w.doIndent.get()
-    
+

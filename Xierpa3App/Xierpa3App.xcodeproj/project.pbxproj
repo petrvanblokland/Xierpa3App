@@ -15,6 +15,7 @@
 		CC45ECFE1934D9C400040845 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFD1934D9C400040845 /* main.py */; };
 		CC45ED001934D9C400040845 /* X3AppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFF1934D9C400040845 /* X3AppDelegate.py */; };
 		CC45ED031934D9C400040845 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC45ED011934D9C400040845 /* MainMenu.xib */; };
+		CC45ED081935DDF900040845 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ED071935DDF900040845 /* libpython2.7.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CC45ECFD1934D9C400040845 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		CC45ECFF1934D9C400040845 /* X3AppDelegate.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = X3AppDelegate.py; sourceTree = "<group>"; };
 		CC45ED021934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CC45ED071935DDF900040845 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpython2.7.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */,
+				CC45ED081935DDF900040845 /* libpython2.7.dylib in Frameworks */,
 				CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +56,7 @@
 				CC45ECF11934D9C400040845 /* Xierpa3App */,
 				CC45ECE81934D9C400040845 /* Frameworks */,
 				CC45ECE71934D9C400040845 /* Products */,
+				CC45ED071935DDF900040845 /* libpython2.7.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,7 +260,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7,
+				);
 				INFOPLIST_FILE = "Xierpa3App/Xierpa3App-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -298,7 +311,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7,
+				);
 				INFOPLIST_FILE = "Xierpa3App/Xierpa3App-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

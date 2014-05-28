@@ -18,25 +18,12 @@ from AppKit import NSApplication, NSApp, NSBundle, NSLog # @UnresolvedImport
 import objc
 objc.setVerbose(True) # @UndefinedVariable
 
+# Specialized reactor for integrating with arbitrary foreign event loop, such as those you find in GUI toolkits.
+from twisted.internet._threadedselect import install
+reactor = install()
 
-def cocoaLog(message):
-    NSLog(message)
-
-def printTraceback():
-    import traceback
-    print traceback.format_exc()
-
-try:
-    # Specialized reactor for integrating with arbitrary foreign event loop, such as those you find in GUI toolkits.
-    from twisted.internet._threadedselect import install
-    reactor = install()
-
-    # import modules containing classes required to start application and load MainMenu.nib
-    import xierpa3app
-except Exception, e:
-    message = "Error running BuroFont application, %s" % e
-    cocoaLog(message)
-    printTraceback()
+# import modules containing classes required to start application and load MainMenu.nib
+import xierpa3app
 
 app = NSApplication.sharedApplication()
 nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa 3.app", "Contents", "Resources", "English.lproj", "MainMenu.nib")

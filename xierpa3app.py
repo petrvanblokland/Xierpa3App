@@ -19,6 +19,7 @@ from twisted.web import server
 
 class XierpaAppDelegate(NSObject):
     u"""
+    Main delegate for Xierpa 3 application.
     """
 
     def applicationShouldTerminate_(self, sender):
