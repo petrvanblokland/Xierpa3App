@@ -23,12 +23,12 @@ from twisted.internet._threadedselect import install
 reactor = install()
 
 # import modules containing classes required to start application and load MainMenu.nib
-import xierpa3app
+import XierpaAppDelegate
 
 app = NSApplication.sharedApplication()
 nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa 3.app", "Contents", "Resources", "en.lproj", "MainMenu.nib")
 NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None) # @UndefinedVariable
-delegate = xierpa3app.XierpaAppDelegate.alloc().init() # @UndefinedVariable
+delegate = XierpaAppDelegate.XierpaAppDelegate.alloc().init() # @UndefinedVariable
 app.setDelegate_(delegate)
 
 # Bring app to top

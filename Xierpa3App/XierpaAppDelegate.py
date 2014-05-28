@@ -8,7 +8,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    xierpa3app.py
+#    XierpaAppDelegate.py
 #
 from AppKit import NSObject #@UnresolvedImport
 from PyObjCTools import AppHelper
