@@ -8,19 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ECE91934D9C400040845 /* Cocoa.framework */; };
-		CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC45ECEB1934D9C400040845 /* Python.framework */; };
 		CC45ECF61934D9C400040845 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECF41934D9C400040845 /* InfoPlist.strings */; };
 		CC45ECF81934D9C400040845 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC45ECF71934D9C400040845 /* main.m */; };
 		CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFA1934D9C400040845 /* Credits.rtf */; };
 		CC45ECFE1934D9C400040845 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC45ECFD1934D9C400040845 /* main.py */; };
 		CC45ED031934D9C400040845 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC45ED011934D9C400040845 /* MainMenu.xib */; };
 		CC89B50E1935E4E800095739 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC89B50D1935E4E800095739 /* libpython2.7.dylib */; };
+		CC89B5101935E68A00095739 /* XierpaAppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC89B50F1935E68A00095739 /* XierpaAppDelegate.py */; };
+		CC89B5121935E7A000095739 /* xierpa3app.py in Resources */ = {isa = PBXBuildFile; fileRef = CC89B5111935E7A000095739 /* xierpa3app.py */; };
+		CC89B5141935E7AF00095739 /* constants.py in Resources */ = {isa = PBXBuildFile; fileRef = CC89B5131935E7AF00095739 /* constants.py */; };
+		CC89B5161935E7C000095739 /* client.py in Resources */ = {isa = PBXBuildFile; fileRef = CC89B5151935E7C000095739 /* client.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC45ECE61934D9C400040845 /* Xierpa3App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xierpa3App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC45ECE91934D9C400040845 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		CC45ECEB1934D9C400040845 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = Library/Frameworks/Python.framework; sourceTree = DEVELOPER_DIR; };
 		CC45ECEE1934D9C400040845 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		CC45ECEF1934D9C400040845 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CC45ECF01934D9C400040845 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,6 +34,10 @@
 		CC45ECFD1934D9C400040845 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		CC45ED021934D9C400040845 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CC89B50D1935E4E800095739 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = "<group>"; };
+		CC89B50F1935E68A00095739 /* XierpaAppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = XierpaAppDelegate.py; sourceTree = "<group>"; };
+		CC89B5111935E7A000095739 /* xierpa3app.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = xierpa3app.py; sourceTree = "<group>"; };
+		CC89B5131935E7AF00095739 /* constants.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = constants.py; sourceTree = "<group>"; };
+		CC89B5151935E7C000095739 /* client.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = client.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC45ECEC1934D9C400040845 /* Python.framework in Frameworks */,
 				CC89B50E1935E4E800095739 /* libpython2.7.dylib in Frameworks */,
 				CC45ECEA1934D9C400040845 /* Cocoa.framework in Frameworks */,
 			);
@@ -70,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				CC45ECE91934D9C400040845 /* Cocoa.framework */,
-				CC45ECEB1934D9C400040845 /* Python.framework */,
 				CC45ECED1934D9C400040845 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -89,6 +93,10 @@
 		CC45ECF11934D9C400040845 /* Xierpa3App */ = {
 			isa = PBXGroup;
 			children = (
+				CC89B5151935E7C000095739 /* client.py */,
+				CC89B5131935E7AF00095739 /* constants.py */,
+				CC89B5111935E7A000095739 /* xierpa3app.py */,
+				CC89B50F1935E68A00095739 /* XierpaAppDelegate.py */,
 				CC45ECFD1934D9C400040845 /* main.py */,
 				CC45ED011934D9C400040845 /* MainMenu.xib */,
 				CC45ECF21934D9C400040845 /* Supporting Files */,
@@ -158,10 +166,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC89B5101935E68A00095739 /* XierpaAppDelegate.py in Resources */,
 				CC45ECFE1934D9C400040845 /* main.py in Resources */,
 				CC45ED031934D9C400040845 /* MainMenu.xib in Resources */,
+				CC89B5121935E7A000095739 /* xierpa3app.py in Resources */,
 				CC45ECF61934D9C400040845 /* InfoPlist.strings in Resources */,
 				CC45ECFC1934D9C400040845 /* Credits.rtf in Resources */,
+				CC89B5141935E7AF00095739 /* constants.py in Resources */,
+				CC89B5161935E7C000095739 /* client.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

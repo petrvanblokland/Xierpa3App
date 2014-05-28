@@ -12,8 +12,8 @@
 #
 from AppKit import NSObject #@UnresolvedImport
 from PyObjCTools import AppHelper
-from src.xierpa3app import Xierpa3App
-from src.client import Client
+from xierpa3app import Xierpa3App
+from client import Client
 from twisted.internet import reactor
 from twisted.web import server
 
