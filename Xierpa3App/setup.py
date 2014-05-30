@@ -24,5 +24,5 @@ setup(
     name="Xierpa3",
     data_files=['en.lproj', ],
     setup_requires=['py2app'],
-    options=dict(py2app=dict(includes=['lxml.etree', 'lxml._elementpath',]))
+    options=dict(py2app=dict(includes=['lxml.etree', 'lxml._elementpath',], packages=['xierpa3']))
 )
