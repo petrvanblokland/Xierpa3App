@@ -91,7 +91,7 @@ class Xierpa3App(AppC):
     def openDocumentationCallback(self, sender):
         url = self.URL
         webbrowser.open(url + '/' + C.PARAM_DOCUMENTATION + '/' + C.PARAM_FORCE)
-        
+
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
