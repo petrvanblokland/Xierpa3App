@@ -11,13 +11,14 @@
 #    xierpa3app.py
 #
 import webbrowser
-from constants import C
+from constants import AppC
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
+from xierpa3.constants.constants import C
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, \
     OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite#, SimpleResponsive
 
-class Xierpa3App(C):
+class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
 
     PORT = 8060
@@ -37,7 +38,7 @@ class Xierpa3App(C):
         u"""
         Initialize the window and open it.
         """
-        self.w = Window((C.WINDOW_WIDTH, C.WINDOW_HEIGHT), "Xierpa 3",
+        self.w = Window((AppC.WINDOW_WIDTH, AppC.WINDOW_HEIGHT), "Xierpa 3",
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         siteLabels = self.getSiteLabels()
         y = len(siteLabels)*20
@@ -46,6 +47,7 @@ class Xierpa3App(C):
         self.w.optionalSites.set(0)
         self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
         self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
+        self.w.openDocumentation = Button((10, y+70, 150, 20), 'Documentation', callback=self.openDocumentationCallback, sizeStyle='small')
         #self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
         #self.w.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
@@ -73,19 +75,23 @@ class Xierpa3App(C):
     def openSiteCallback(self, sender):
         url = self.URL
         if self.w.forceCss.get():
-            url += '/force'
+            url += '/' + C.PARAM_FORCE
         webbrowser.open(url)
 
     def openCssCallback(self, sender):
         url = self.URL
         if self.w.forceCss.get():
-            url += '/force'
+            url += '/' + C.PARAM_FORCE
         webbrowser.open(url + '/css/style.css')
 
     def openSassCallback(self, sender):
         url = self.URL
         #os.open(url + '/css/style.scss')
 
+    def openDocumentationCallback(self, sender):
+        url = self.URL
+        webbrowser.open(url + '/' + C.PARAM_DOCUMENTATION + '/' + C.PARAM_FORCE)
+        
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
