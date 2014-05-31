@@ -24,6 +24,12 @@ class Xierpa3App(AppC):
     PORT = 8060
     URL = 'http://localhost:%d' % PORT
 
+    EXAMPLE_SCRIPT = """
+s = CurrentSite()
+page = s.components[0]
+print page
+print page.name
+"""
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
@@ -54,7 +60,9 @@ class Xierpa3App(AppC):
         self.w.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         self.w.console = EditText((10, -200, -10, -10), sizeStyle='small')
         self.w.script = TextEditor((300, 10, -10, -240))
-        self.w.runScript = Button((300, -230, 150, -210), 'Run script', callback=self.runScriptCallback, sizeStyle='small')
+        self.w.runScript = Button((300, -230, 150, -210), 'Run script', 
+            callback=self.runScriptCallback, sizeStyle='small')
+        self.w.script.set(self.EXAMPLE_SCRIPT)
         self.w.open()
 
     def getSiteLabels(self):
