@@ -16,7 +16,7 @@ from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from xierpa3.constants.constants import C
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, \
-    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite#, SimpleResponsive
+    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage 
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -34,7 +34,7 @@ print page.name
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
         ("Hello world responsive", HelloWorldResponsive()),
-        #("Simple responsive", SimpleResponsive()),
+        ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
