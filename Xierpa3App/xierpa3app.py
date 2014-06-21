@@ -14,9 +14,13 @@ import webbrowser
 from constants import AppC
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
+from xierpa3.builders.htmlbuilder import HtmlBuilder
+from xierpa3.builders.sassbuilder import SassBuilder
+from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
 from xierpa3.constants.constants import C
-from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldResponsive, \
-    OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage 
+from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
+    HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, \
+    SimpleResponsivePage 
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -33,6 +37,7 @@ print page.name
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
+        ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Hello world responsive", HelloWorldResponsive()),
         ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
@@ -53,8 +58,9 @@ print page.name
         self.w.optionalSites.set(0)
         self.w.openSite = Button((10, y+20, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
         self.w.openCss = Button((10, y+45, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
-        self.w.openDocumentation = Button((10, y+70, 150, 20), 'Documentation', callback=self.openDocumentationCallback, sizeStyle='small')
-        #self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
+        self.w.openSass = Button((10, y+70, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
+        self.w.openDocumentation = Button((10, y+95, 150, 20), 'Documentation', callback=self.openDocumentationCallback, sizeStyle='small')
+        self.w.saveAsKirby = Button((10, y+120, 150, 20), 'Save as Kirby', callback=self.saveAsKirbyCallback, sizeStyle='small')
         #self.w.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         self.w.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
         self.w.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
@@ -100,6 +106,24 @@ print page.name
         url = self.URL
         webbrowser.open(url + '/' + C.PARAM_DOCUMENTATION + '/' + C.PARAM_FORCE)
 
+    def saveAsKirbyCallback(self, sender):
+        # Save site as Kirby template in MAMP area.
+        ROOTPATH = '/Applications/MAMP/htdocs/' # TODO: Ask for save folder instead
+        adapter = KirbyAdapter() 
+        site = self.getSite()
+        # Create the main blog builder, which will split into building the
+        # CSS and PHP/HTML files, using the Kirby PHP snippets as content.
+        builder = SassBuilder(adapter=adapter)
+        builder.setRootPath(ROOTPATH)
+        builder.save(site)
+        # Build the HTML+PHP Kirby template.
+        builder = HtmlBuilder(adapter=adapter)
+        # Make the Kirby source directly save to MAMP, so it is served by local server.
+        builder.setRootPath(ROOTPATH)
+        # Create the required directories for Kirby.
+        # Build the CSS and and PHP/HTML files in the MAMP directory.
+        builder.save(site)
+            
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
