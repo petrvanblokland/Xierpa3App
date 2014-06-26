@@ -14,9 +14,10 @@ import webbrowser
 from constants import AppC
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
-from xierpa3.builders.htmlbuilder import HtmlBuilder
 from xierpa3.builders.cssbuilder import CssBuilder
-from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
+from xierpa3.builders.phpbuilder import PhpBuilder 
+from xierpa3.adapters import PhpAdapter
+#from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
 from xierpa3.constants.constants import C
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
     HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, \
@@ -110,22 +111,26 @@ print page.name
     def saveAsKirbyCallback(self, sender):
         # Save site as Kirby template in MAMP area.
         ROOT_MAMP = '/Applications/MAMP/htdocs/'
-        adapter = KirbyAdapter() 
+        # Get the current selected site instance.
         site = self.getSite()
-        rootPath = ROOT_MAMP + site.__class__.__name__.lower() + '/' # TODO: Ask for save folder instead
+        saveAdapter = site.adapter # Save the current adapter for this site.
+        site.adapter = PhpAdapter() # Create the site running with this adapter.
         # Create the main blog builder, which will split into building the
         # CSS and PHP/HTML files, using the Kirby PHP snippets as content.
-        cssBuilder = CssBuilder(adapter=adapter)
+        cssBuilder = CssBuilder()
         site.build(cssBuilder) # Build from entire site theme, not just from template. Result is stream in builder.
+        rootPath = ROOT_MAMP + site.__class__.__name__.lower() + '/assets/' # TODO: Ask for save folder instead
         cssBuilder.save(site, root=rootPath)
-        # Build the HTML+PHP Kirby template.
-        htmlBuilder = HtmlBuilder(adapter=adapter)
-        # Make the Kirby source directly save to MAMP, so it is served by local server.
-        # Create the required directories for Kirby.
+        # Build the PHP/HTML template.
+        phpBuilder = PhpBuilder()
+        # Make the PHP source directly save to MAMP, so it is served by local server.
         # Build the CSS and and PHP/HTML files in the MAMP directory.
-        site.build(htmlBuilder) # Build from entire site theme, not just from template. Result is stream in builder.
-        htmlBuilder.save(site, root=rootPath)
-            
+        site.build(phpBuilder) # Build from entire site theme, not just from template. Result is stream in builder.
+        rootPath = ROOT_MAMP + site.__class__.__name__.lower() + '/site/templates/' # TODO: Ask for save folder instead
+        phpBuilder.save(site, root=rootPath)
+        # Restore the original adapter.
+        site.adapter = saveAdapter
+           
     def getSite(self):
         _, site = self.SITE_LABELS[self.w.optionalSites.get()]
         return site
