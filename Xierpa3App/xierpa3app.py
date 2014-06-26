@@ -20,7 +20,7 @@ from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
 from xierpa3.constants.constants import C
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
     HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, \
-    SimpleResponsivePage 
+    SimpleResponsivePage, Featuring1 
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -43,6 +43,7 @@ print page.name
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
+        ("Featured article 1", Featuring1()),
         ("DoingByDesign", DoingByDesign()),
     ]
     def __init__(self):
