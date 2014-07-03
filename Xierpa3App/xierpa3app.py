@@ -13,6 +13,7 @@
 import os
 import webbrowser
 from AppKit import NSInformationalAlertStyle #@UnresolvedImport
+import constants
 from constants import AppC
 from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor, TextBox
 from vanilla.dialogs import message
@@ -24,9 +25,10 @@ from xierpa3.builders import PhpBuilder
 #from xierpa3.adapters import PhpAdapter
 #from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
 from xierpa3.constants.constants import C
+from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
-    HelloWorldResponsive, OneColumnSite, SimpleTypeSpecimenSite, SimpleWebSite, \
-    SimpleResponsivePage, Featuring1 
+    HelloWorldResponsive, HelloWorldPages, OneColumnSite, SimpleTypeSpecimenSite, \
+    SimpleWebSite, SimpleResponsivePage, Featuring1 
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -34,6 +36,9 @@ class Xierpa3App(AppC):
     PORT = 8060
     URL = 'http://localhost:%d' % PORT
 
+    PHP_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/Resources/php/'
+    PHP_SIMPLEMVC = PHP_ROOT + 'simple-mvc-framework-v2/'
+    
     EXAMPLE_SCRIPT = """
 s = CurrentSite()
 page = s.components[0]
@@ -45,6 +50,7 @@ print page.name
         ("Hello world layout", HelloWorldLayout()),
         ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Hello world responsive", HelloWorldResponsive()),
+        ("Hello world pages", HelloWorldPages()),
         ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
@@ -71,14 +77,15 @@ print page.name
         y += bo
         view.openCss = Button((10, y, 150, 20), 'Open CSS', callback=self.openCssCallback, sizeStyle='small')
         y += bo
-        view.openSass = Button((10, y, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
-        y += bo
+        #view.openSass = Button((10, y, 150, 20), 'Open SASS', callback=self.openSassCallback, sizeStyle='small')
+        #y += bo
         view.openDocumentation = Button((10, y, 150, 20), 'Documentation', callback=self.openDocumentationCallback, sizeStyle='small')
         y += bo
         view.openAsPhp = Button((10, y, 150, 20), 'Open as PHP', callback=self.openAsPhpCallback, sizeStyle='small')
         #view.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
         view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
         view.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
+        view.forceCopy = CheckBox((180, 50, 150, 20), 'Overwrite files', sizeStyle='small', value=True)
         view.console = EditText((10, -200, -10, -10), sizeStyle='small')
         # Path defaults
         y = 20
@@ -152,7 +159,7 @@ print page.name
         #os.open(url + '/css/style.scss')
 
     def openDocumentationCallback(self, sender):
-        self.updateRootPaths()
+        self.updateBuilderRootPaths()
         url = self.URL
         webbrowser.open(url + '/' + C.PARAM_DOCUMENTATION + '/' + C.PARAM_FORCE)
 
@@ -177,11 +184,13 @@ print page.name
                 alertStyle=NSInformationalAlertStyle, parentWindow=view)
             return None
         return root + site.__class__.__name__.lower() + '/' 
-        
+    
     def openAsPhpCallback(self, sender):
         u"""Save site as PHP template in MAMP area and then open it in the browser.
         This function assumes that a PHP server like MAMP is running. Otherwise the
         page will not open in the browser."""
+        view = self.getView()
+        forceCopy = view.forceCopy.get() # Overwrite existing framework file?
         # Get the current selected site instance.
         site = self.getSite()
         # Save the current adapter for this site in order to restore it in the end.
@@ -193,16 +202,25 @@ print page.name
         # Build the CSS and and PHP/HTML files in the MAMP directory.
         builder = CssBuilder()
         site.build(builder) # Build from entire site theme, not just from template. Result is stream in builder.
-        builder.save(site, root=rootPath)
+        # Copy the PHP framework on that position all files/directories the not yet exist.
+        # Existing files will not be overwritten, unless the forceCopy flag is True.
+        builder.makeDirectory(rootPath)
+        builder.copyTree(self.PHP_SIMPLEMVC, rootPath, force=forceCopy)
+        # Save the created output onto the framework template
+        builder.save(site, root=rootPath + 'app/template/default/')
         # Create the PhpBuilder instance that can build/modify the PHP file structure.
         builder = PhpBuilder()
-        # Render the website towards PHP export.
+        # Render the website as export file, positioned over the default PHP framework..
         site.build(builder) # Build from entire site theme, not just from template. Result is stream in builder.
+        """
         # Copy the PHP frame work and save PHP/HTML files,
         builder.save(site, root=rootPath)
         # Restore the original adapter.
         site.adapter = saveAdapter
-           
+        """# Open the site in the browser
+        
+        webbrowser.open('localhost:8888/phptest/index')
+        
     def getSite(self):
         view = self.getView()
         _, site = self.SITE_LABELS[view.optionalSites.get()]
