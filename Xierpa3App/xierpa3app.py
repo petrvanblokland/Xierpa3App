@@ -15,7 +15,7 @@ import webbrowser
 from AppKit import NSInformationalAlertStyle #@UnresolvedImport
 import constants
 from constants import AppC
-from vanilla import RadioGroup, Window, Button, CheckBox, EditText, TextEditor, TextBox
+from vanilla import Window, Button, CheckBox, EditText, TextEditor, TextBox, PopUpButton
 from vanilla.dialogs import message
 from xierpa3.sites.doingbydesign.doingbydesign import DoingByDesign
 from xierpa3.builders.sassbuilder import SassBuilder
@@ -28,7 +28,7 @@ from xierpa3.constants.constants import C
 from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
     HelloWorldResponsive, HelloWorldPages, OneColumnSite, SimpleTypeSpecimenSite, \
-    SimpleWebSite, SimpleResponsivePage, Featuring1 
+    SimpleWebSite, SimpleResponsivePage, Featuring1
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -36,9 +36,15 @@ class Xierpa3App(AppC):
     PORT = 8060
     URL = 'http://localhost:%d' % PORT
 
-    PHP_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/Resources/php/'
-    PHP_SIMPLEMVC = PHP_ROOT + 'simple-mvc-framework-v2/'
-    
+    # Make sure that the PHP frameworks are downloaded from the latest version in git.
+    GIT_ROOT = '/'.join(TX.module2Path(constants).split('/')[:-2]) + '/../'
+    PHP_SIMPLEMVC = GIT_ROOT + 'simple-mvc-framework-v2/'
+    if not os.path.exists(PHP_SIMPLEMVC):
+        print 'Download //github.com/simple-mvc-framework/v2 to', PHP_SIMPLEMVC
+    PHP_KIRBY = GIT_ROOT + 'kirby/'
+    if not os.path.exists(PHP_KIRBY):
+        print 'License //kirby.com and save to', PHP_KIRBY
+        
     EXAMPLE_SCRIPT = """
 s = CurrentSite()
 page = s.components[0]
@@ -48,9 +54,9 @@ print page.name
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
+        ("Hello world pages", HelloWorldPages()),
         ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Hello world responsive", HelloWorldResponsive()),
-        ("Hello world pages", HelloWorldPages()),
         ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
@@ -65,12 +71,15 @@ print page.name
         self.w = view = Window((AppC.WINDOW_WIDTH, AppC.WINDOW_HEIGHT), "Xierpa 3",
             closable=True, minSize=(200, 200), maxSize=(1600, 1000))
         siteLabels = self.getSiteLabels()
-        y = len(siteLabels)*20
+        #y = len(siteLabels)*20
+        y = 10
         bo = 25 # Button offset
-        view.optionalSites = RadioGroup((10, 10, 150, y), siteLabels,
-            callback=self.selectSiteCallback, sizeStyle='small')
+        view.optionalSites = PopUpButton((10, y, 150, 24), siteLabels,
+            sizeStyle='small', callback=self.selectSiteCallback)
+        #view.optionalSites = RadioGroup((10, 10, 150, y), siteLabels,
+        #    callback=self.selectSiteCallback, sizeStyle='small')
         self.w.optionalSites.set(0)
-        y = y + 20
+        y = y + 32
         view.openSite = Button((10, y, 150, 20), 'Open site', callback=self.openSiteCallback, sizeStyle='small')
         y += bo
         self.w.saveSite = Button((10, y, 150, 20), 'Save HTML+CSS', callback=self.saveSiteCallback, sizeStyle='small')
@@ -83,7 +92,7 @@ print page.name
         y += bo
         view.openAsPhp = Button((10, y, 150, 20), 'Open as PHP', callback=self.openAsPhpCallback, sizeStyle='small')
         #view.makeSite = Button((10, y+95, 150, 20), 'Make site', callback=self.makeSiteCallback, sizeStyle='small')
-        view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small')
+        view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small', value=True)
         view.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         view.forceCopy = CheckBox((180, 50, 150, 20), 'Overwrite files', sizeStyle='small', value=True)
         view.console = EditText((10, -200, -10, -10), sizeStyle='small')
@@ -172,7 +181,7 @@ print page.name
             message(messageText='Error in MAMP path.', informativeText='The MAMP folder "%s" does not exist.' % root, 
                 alertStyle=NSInformationalAlertStyle, parentWindow=view)
             return None
-        return root + site.__class__.__name__.lower() + '/' 
+        return root + site.getPythonClassName().lower() + '/' 
     
     def getExampleRootPath(self, site):
         view = self.getView()
@@ -183,7 +192,7 @@ print page.name
             message(messageText='Error in Examples path.', informativeText='The Examples folder "%s" does not exist.' % root, 
                 alertStyle=NSInformationalAlertStyle, parentWindow=view)
             return None
-        return root + site.__class__.__name__.lower() + '/' 
+        return root + site.getPythonClassName().lower() + '/' 
     
     def openAsPhpCallback(self, sender):
         u"""Save site as PHP template in MAMP area and then open it in the browser.
@@ -207,19 +216,17 @@ print page.name
         builder.makeDirectory(rootPath)
         builder.copyTree(self.PHP_SIMPLEMVC, rootPath, force=forceCopy)
         # Save the created output onto the framework template
-        builder.save(site, root=rootPath + 'app/template/default/')
+        builder.save(site, root=rootPath + 'app/templates/default/')
         # Create the PhpBuilder instance that can build/modify the PHP file structure.
         builder = PhpBuilder()
         # Render the website as export file, positioned over the default PHP framework..
         site.build(builder) # Build from entire site theme, not just from template. Result is stream in builder.
-        """
         # Copy the PHP frame work and save PHP/HTML files,
         builder.save(site, root=rootPath)
         # Restore the original adapter.
         site.adapter = saveAdapter
-        """# Open the site in the browser
-        
-        webbrowser.open('localhost:8888/phptest/index')
+        # Open the site in the browser
+        webbrowser.open('http://localhost:8888/%s/index.php' % site.getPythonClassName().lower())
         
     def getSite(self):
         view = self.getView()
