@@ -55,8 +55,8 @@ print page.name
         ("Hello world", HelloWorld()),
         ("Hello world layout", HelloWorldLayout()),
         ("Hello world pages", HelloWorldPages()),
-        ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Hello world responsive", HelloWorldResponsive()),
+        ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
@@ -153,6 +153,8 @@ print page.name
         view = self.getView()
         if view.forceCss.get():
             url += '/' + C.PARAM_FORCE
+        # Always open url with generic /index so css/style.css will inherit the /force
+        url += '/index'
         webbrowser.open(url)
     
     def openCssCallback(self, sender):
