@@ -24,7 +24,7 @@ from xierpa3.builders.htmlbuilder import HtmlBuilder
 from xierpa3.builders import PhpBuilder
 #from xierpa3.adapters import PhpAdapter
 #from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
-from xierpa3.constants.constants import C
+from xierpa3.constants.constants import Constants
 from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
     HelloWorldResponsive, HelloWorldPages, OneColumnSite, SimpleTypeSpecimenSite, \
@@ -32,6 +32,9 @@ from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBlueP
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
+
+    # Get Constants->Config as class variable, so inheriting classes can redefined values.
+    C = Constants 
 
     PORT = 8060
     URL = 'http://localhost:%d' % PORT
@@ -95,14 +98,15 @@ print page.name
         view.forceCss = CheckBox((180, 10, 150, 20), 'Force make CSS', sizeStyle='small', value=True)
         view.doIndent = CheckBox((180, 30, 150, 20), 'Build indents', sizeStyle='small', value=True)
         view.forceCopy = CheckBox((180, 50, 150, 20), 'Overwrite files', sizeStyle='small', value=True)
+        view.isOnline = CheckBox((180, 70, 150, 20), 'Online', sizeStyle='small', value=True, callback=self.isOnlineCallback)
         view.console = EditText((10, -200, -10, -10), sizeStyle='small')
         # Path defaults
         y = 20
         view.mampRootLabel = TextBox((300, y, 100, 20), 'MAMP folder', sizeStyle='small')
-        view.mampRoot = EditText((400, y, -10, 20), C.PATH_MAMP, sizeStyle='small')
+        view.mampRoot = EditText((400, y, -10, 20), self.C.PATH_MAMP, sizeStyle='small')
         y += bo
         view.exampleRootLabel = TextBox((300, y, 100, 20), 'Root folder', sizeStyle='small')
-        view.exampleRoot = EditText((400, y, -10, 20), C.PATH_EXAMPLES, sizeStyle='small') 
+        view.exampleRoot = EditText((400, y, -10, 20), self.C.PATH_EXAMPLES, sizeStyle='small') 
         # Scripting
         y += bo
         view.script = TextEditor((300, y, -10, -240))
@@ -120,6 +124,11 @@ print page.name
             siteLabels.append(siteLabel)
         return siteLabels
 
+    def isOnlineCallback(self, sender):
+        u"""Set the Constants.USE_ONLINE flag."""
+        view = self.getView()
+        Constants.USE_ONLINE = view.isOnline.get()
+        
     def runScriptCallback(self, sender):
         view = self.getView()
         src = self.BASESCRIPT + view.script.get()
@@ -152,7 +161,7 @@ print page.name
         self.updateBuilderRootPaths()
         view = self.getView()
         if view.forceCss.get():
-            url += '/' + C.PARAM_FORCE
+            url += '/' + self.C.PARAM_FORCE
         # Always open url with generic /index so css/style.css will inherit the /force
         url += '/index'
         webbrowser.open(url)
@@ -162,7 +171,7 @@ print page.name
         self.updateBuilderRootPaths()
         url = self.URL
         if view.forceCss.get():
-            url += '/' + C.PARAM_FORCE
+            url += '/' + self.C.PARAM_FORCE
         webbrowser.open(url + '/css/style.css')
 
     def openSassCallback(self, sender):
@@ -172,7 +181,7 @@ print page.name
     def openDocumentationCallback(self, sender):
         self.updateBuilderRootPaths()
         url = self.URL
-        webbrowser.open(url + '/' + C.PARAM_DOCUMENTATION + '/' + C.PARAM_FORCE)
+        webbrowser.open(url + '/' + self.C.PARAM_DOCUMENTATION + '/' + self.C.PARAM_FORCE)
 
     def getMampRootPath(self, site):
         view = self.getView()
