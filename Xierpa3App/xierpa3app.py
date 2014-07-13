@@ -26,9 +26,9 @@ from xierpa3.builders import PhpBuilder
 #from xierpa3.adapters.kirby.kirbyadapter import KirbyAdapter
 from xierpa3.constants.constants import Constants
 from xierpa3.toolbox.transformer import TX
-from xierpa3.sites.examples import HelloWorld, HelloWorldLayout, HelloWorldBluePrint, \
-    HelloWorldResponsive, HelloWorldPages, OneColumnSite, SimpleTypeSpecimenSite, \
-    SimpleWebSite, SimpleResponsivePage, TextileArticles
+from xierpa3.sites.examples import HelloWorld, HelloWorldStyle, HelloWorldLayout, \
+    HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, \
+    SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -56,6 +56,7 @@ print page.name
 """
     SITE_LABELS = [
         ("Hello world", HelloWorld()),
+        ("Hello world style", HelloWorldStyle()),
         ("Hello world layout", HelloWorldLayout()),
         ("Hello world pages", HelloWorldPages()),
         ("Hello world responsive", HelloWorldResponsive()),
