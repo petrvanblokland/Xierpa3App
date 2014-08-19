@@ -74,3 +74,4 @@ DerivedData/
 !default.perspectivev3
 xcuserdata
 *.moved-aside
+.idea

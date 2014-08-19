@@ -10,7 +10,7 @@
 #
 #    XierpaAppDelegate.py
 #
-from AppKit import NSObject #@UnresolvedImport
+from AppKit import NSObject 
 from PyObjCTools import AppHelper
 from xierpa3app import Xierpa3App
 from client import Client

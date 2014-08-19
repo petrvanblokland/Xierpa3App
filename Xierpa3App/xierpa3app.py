@@ -12,7 +12,7 @@
 #
 import os
 import webbrowser
-from AppKit import NSInformationalAlertStyle #@UnresolvedImport
+from AppKit import NSInformationalAlertStyle 
 import constants
 from constants import AppC
 from vanilla import Window, Button, CheckBox, EditText, TextEditor, TextBox, PopUpButton
