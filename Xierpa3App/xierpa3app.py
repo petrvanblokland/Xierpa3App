@@ -28,7 +28,8 @@ from xierpa3.constants.constants import Constants
 from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldStyle, HelloWorldLayout, \
     HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, \
-    SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles
+    SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles, \
+    FeaturedColumn
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -66,6 +67,7 @@ print page.name
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
         ("Simple Textile article", TextileArticles()),
+        ("Featured column", FeaturedColumn()),
         ("DoingByDesign", DoingByDesign()),
     ]
     def __init__(self):
