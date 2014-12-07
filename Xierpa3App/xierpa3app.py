@@ -29,7 +29,7 @@ from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldStyle, HelloWorldLayout, \
     HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, OneArticleSite, \
     SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles, \
-    FeaturedColumn
+    FeaturedColumn, BasicWebsite
 
 class Xierpa3App(AppC):
     u"""Implementation of a vanilla-based GUI for the Xierpa 3 environment."""
@@ -68,6 +68,7 @@ print page.name
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
         ("Simple Textile article", TextileArticles()),
+        ("Basis website without styles", BasicWebsite()),
         ("Featured column", FeaturedColumn()),
         ("DoingByDesign", DoingByDesign()),
     ]
