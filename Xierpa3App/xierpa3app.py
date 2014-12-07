@@ -27,7 +27,7 @@ from xierpa3.builders import PhpBuilder
 from xierpa3.constants.constants import Constants
 from xierpa3.toolbox.transformer import TX
 from xierpa3.sites.examples import HelloWorld, HelloWorldStyle, HelloWorldLayout, \
-    HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, \
+    HelloWorldBluePrint, HelloWorldResponsive, HelloWorldPages, OneColumnSite, OneArticleSite, \
     SimpleTypeSpecimenSite, SimpleWebSite, SimpleResponsivePage, TextileArticles, \
     FeaturedColumn
 
@@ -64,6 +64,7 @@ print page.name
         ("Hello world BluePrint", HelloWorldBluePrint()),
         ("Simple responsive page", SimpleResponsivePage()),
         ("One column", OneColumnSite()),
+        ("One Textile Wiki article", OneArticleSite()),
         ("Simple type specimen", SimpleTypeSpecimenSite()),
         ("Simple website", SimpleWebSite()),
         ("Simple Textile article", TextileArticles()),
