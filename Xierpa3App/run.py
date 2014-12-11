@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
 # -----------------------------------------------------------------------------
-#     BuroFont Editor
-#     (c) 2014+  Font Bureau
+#    xierpa server
+#    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.xierpa.com
 #
-#     No distribution without permission.
+#    X I E R P A  3  A P P
+#    Distribution by the MIT License.
 #
 # -----------------------------------------------------------------------------
 #
