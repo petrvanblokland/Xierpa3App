@@ -11,7 +11,7 @@ In OSX terminal cmd-line:
 
 ### History
 
-Xierpa3App (2014) is based on Xierpa3(2014).
+Xierpa3App (2014) is based on Xierpa3 (2014).
 
 -----------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ FB & Twitter: @petrvanblokland
  * [Michiel Kauw-A-Tjoe](mailto:michiel@petr.com)
  * [Torben Wilhelmsen](mailto:torben@wil.dk)
 
-#### Published by he MIT License
+#### Published by the MIT License
  * http://opensource.org/licenses/MIT
 
  -----------------------------------------------------------------------------
