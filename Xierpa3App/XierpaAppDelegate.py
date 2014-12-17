@@ -10,7 +10,7 @@
 #
 #    XierpaAppDelegate.py
 #
-from AppKit import NSObject 
+from AppKit import NSObject
 from PyObjCTools import AppHelper
 from xierpa3app import Xierpa3App
 from client import Client
@@ -23,9 +23,9 @@ class XierpaAppDelegate(NSObject):
     """
 
     def applicationShouldTerminate_(self, sender):
-        if reactor.running: #@UndefinedVariable
-            reactor.addSystemEventTrigger('after', 'shutdown', AppHelper.stopEventLoop) #@UndefinedVariable
-            reactor.stop() #@UndefinedVariable
+        if reactor.running:
+            reactor.addSystemEventTrigger('after', 'shutdown', AppHelper.stopEventLoop)
+            reactor.stop()
             return False
         return True
 
@@ -33,6 +33,6 @@ class XierpaAppDelegate(NSObject):
         client = Client()
         client.app = Xierpa3App()
         site = server.Site(client)
-        reactor.interleave(AppHelper.callAfter) #@UndefinedVariable
-        reactor.listenTCP(8060, site) # @UndefinedVariable
+        reactor.interleave(AppHelper.callAfter)
+        reactor.listenTCP(8060, site)
 

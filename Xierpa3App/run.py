@@ -15,9 +15,9 @@
 #
 import os
 from PyObjCTools import AppHelper
-from AppKit import NSApplication, NSApp, NSBundle, NSLog # @UnresolvedImport
+from AppKit import NSApplication, NSApp, NSBundle, NSLog
 import objc
-objc.setVerbose(True) # @UndefinedVariable
+objc.setVerbose(True)
 
 # Specialized reactor for integrating with arbitrary foreign event loop, such as those you find in GUI toolkits.
 from twisted.internet._threadedselect import install
@@ -28,8 +28,8 @@ import XierpaAppDelegate
 
 app = NSApplication.sharedApplication()
 nibPath = os.path.join(os.path.dirname(__file__), "dist", "Xierpa3.app", "Contents", "Resources", "en.lproj", "MainMenu.nib")
-NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None) # @UndefinedVariable
-delegate = XierpaAppDelegate.XierpaAppDelegate.alloc().init() # @UndefinedVariable
+NSBundle.loadNibFile_externalNameTable_withZone_(nibPath, {}, None)
+delegate = XierpaAppDelegate.XierpaAppDelegate.alloc().init()
 app.setDelegate_(delegate)
 
 # Bring app to top

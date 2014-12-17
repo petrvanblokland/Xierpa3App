@@ -4,6 +4,6 @@ from PyObjCTools import AppHelper
 from twisted.internet._threadedselect import install
 reactor = install()
 
-import XierpaAppDelegate #@UnusedImport
+import XierpaAppDelegate
 
 AppHelper.runEventLoop()
