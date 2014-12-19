@@ -22,7 +22,7 @@ from setuptools import setup
 setup(
     app=['main.py'],
     name="Xierpa3",
-    data_files=['en.lproj', ],
+    data_files=['en.lproj', '../../Xierpa3/xierpa3/sites/doingbydesign/files/articles/',],
     setup_requires=['py2app'],
     options=dict(py2app=dict(includes=['lxml.etree', 'lxml._elementpath',], packages=['xierpa3']))
 )

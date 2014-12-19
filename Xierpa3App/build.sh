@@ -5,4 +5,4 @@
 rm -r build dist
 python setup.py py2app --no-strip
 killall Xierpa3
-python run.py
+./dist/Xierpa3.app/Contents/MacOS/Xierpa3
